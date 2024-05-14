@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query"
-
 import { Button } from "./components/ui/button"
 import {
   Card,
@@ -34,13 +33,13 @@ function App() {
   return (
     <div className="App">
       <h1 className="text-2xl uppercase mb-10">Products</h1>
-
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto">
         {data?.map((product) => (
           <Card key={product.id} className="w-[350px]">
             <CardHeader>
+              <img src={product.image}></img>
               <CardTitle>{product.name}</CardTitle>
-              <CardDescription>Some Description here</CardDescription>
+              <CardDescription>{product.description}</CardDescription>
             </CardHeader>
             <CardContent>
               <p>Card Content Here</p>
