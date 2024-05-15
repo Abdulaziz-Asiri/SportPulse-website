@@ -1,7 +1,14 @@
 # Project: Frontend for E-commerce Website
 
 Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
-
+- [x]  design hero
+- [ ]  Review demo connect to database
+- [ ]  Design home page
+- [ ]  Implement Router
+- [ ]  Add and remove products
+- [ ]  display product in dashpourd
+- [ ]  implement search for products
+- [ ]  alis query  “data: name i want”
 ### Level 1: Basic Requirements
 
 **Pages to Create:**
