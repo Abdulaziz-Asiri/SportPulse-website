@@ -1,16 +1,24 @@
-import api from "@/api"
+import { useQuery } from "@tanstack/react-query"
+
 import { Button } from "@/components/ui/button"
 import { CardContent, Card, CardTitle, CardFooter } from "@/components/ui/card"
 import { Product } from "@/types"
-import { useQuery } from "@tanstack/react-query"
-import { Link } from "lucide-react"
 import videoH from "../assets/ProteinAd.mp4"
+import api from "@/api"
+import NavBar from "@/components/ui/NavigationBar"
+import { useContext } from "react"
+import { GlobalContext } from "@/App"
 
-export default function Component() {
+export default function Home() {
+  const context  = useContext(GlobalContext)
+  if(!context) throw Error("Context is not available")
+    const {state , handleAddToCart} = context
+  
+  // Talk to backend through HTTP request using api using axios library
   const getProducts = async () => {
     try {
       const res = await api.get("/products")
-      return res.data
+      return res.data 
     } catch (error) {
       console.error(error)
       return Promise.reject(new Error("Something went wrong"))
@@ -21,36 +29,12 @@ export default function Component() {
   const { data, error } = useQuery<Product[]>({
     // useQuery-> It provides a declarative and efficient way to handle data fetching, caching, and synchronization with the UI components.
     queryKey: ["products"],
-    queryFn: getProducts
+    queryFn: getProducts // Query funciton
+
   })
   return (
     <>
-      <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 border-b">
-        <Link className="flex items-center justify-center" href="#">
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
-        </Link>
-        <nav className="ml-auto hidden gap-4 sm:gap-6 lg:flex">
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Home
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Shop
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            About
-          </Link>
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Contact
-          </Link>
-        </nav>
-        <div className="ml-auto flex items-center gap-2 lg:hidden">
-          <Button className="rounded-full" size="icon" variant="ghost">
-            <MenuIcon className="h-6 w-6" />
-            <span className="sr-only">Toggle navigation</span>
-          </Button>
-        </div>
-      </header>
+      <NavBar />
       <section className="w-full relative">
         <video
           className="absolute inset-0 z-[-1] h-full w-full object-cover"
@@ -65,7 +49,7 @@ export default function Component() {
           loop
           muted
         />
-        <div className="container grid lg:grid-cols-[1fr_1500px] gap-12 items-center ">
+        <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
               Fuel Your Body with Premium Nutrition Supplements
@@ -85,6 +69,7 @@ export default function Component() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Featured Products
               </h2>
+              <h3> Cart ({state.cart.length}) </h3>
               <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
                 Discover our top-selling sustainable fashion items.
               </p>
@@ -106,7 +91,9 @@ export default function Component() {
                   <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full">Add to cart</Button>
+                  <Button className="w-full" onClick={() => handleAddToCart(product)}>
+                    Add to cart
+                  </Button>
                 </CardFooter>
               </Card>
             ))}
@@ -133,22 +120,22 @@ export default function Component() {
           © 2024 Acme Inc. All rights reserved.
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+          <a className="text-xs hover:underline underline-offset-4" href="#">
             Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+          </a>
+          <a className="text-xs hover:underline underline-offset-4" href="#">
             Privacy
-          </Link>
+          </a>
           <div className="flex gap-4">
-            <Link aria-label="Facebook" href="#">
+            <a aria-label="Facebook" href="#">
               <FacebookIcon className="h-5 w-5 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" />
-            </Link>
-            <Link aria-label="Twitter" href="#">
+            </a>
+            <a aria-label="Twitter" href="#">
               <TwitterIcon className="h-5 w-5 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" />
-            </Link>
-            <Link aria-label="Instagram" href="#">
+            </a>
+            <a aria-label="Instagram" href="#">
               <InstagramIcon className="h-5 w-5 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50" />
-            </Link>
+            </a>
           </div>
         </nav>
       </footer>
@@ -252,5 +239,5 @@ function TwitterIcon(props) {
     >
       <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
     </svg>
-  )
+   )
 }

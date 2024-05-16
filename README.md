@@ -2,28 +2,35 @@
 
 Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 - [x]  design hero
-- [ ]  Review demo connect to database
-- [ ]  Design home page
-- [ ]  Implement Router
-- [ ]  Add and remove products
-- [ ]  display product in dashpourd
-- [ ]  implement search for products
+- [x]  Design home page
+- [x]  Product page
+- [x]  Dashboard page
+- [x]  LogIn page
+- [x]  SingUp page
+- [x]  Implement Router
+- [x]  Add and remove products from cart
+- [ ]  Add new and remove products from DB
+- [ ]  display product in dashbourd
+- [ ]  fix cart incressing and total amount
+- [ ]  
 - [ ]  alis query  “data: name i want”
+- [ ]  
+- [ ] 
 ### Level 1: Basic Requirements
 
 **Pages to Create:**
 
-1. Home page (list all the products)
-2. Product page (contain the details of a product)
-3. Dashboard page
+1. [x] Home page (list all the products)
+2. [x] Product page (contain the details of a product)
+3. [x] Dashboard page
 
 **Functionalities for a Visitor:**
 
-- Get list of products
+- [x] Get list of products
 - Filter products by categories or price
 - Search products by name
-- Add products to a cart
-- Remove products from a cart
+- [x] Add products to a cart
+- [x] Remove products from a cart
 
 **Functionalities for an Admin:**
 
