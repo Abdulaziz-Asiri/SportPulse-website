@@ -1,37 +1,60 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 import { Button } from "@/components/ui/button"
 import { CardContent, Card, CardTitle, CardFooter } from "@/components/ui/card"
 import { Product } from "@/types"
 import videoH from "../assets/ProteinAd.mp4"
 import api from "@/api"
-import NavBar from "@/components/ui/NavigationBar"
+import NavBar from "@/components/NavigationBar"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
+import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function Home() {
-  const context  = useContext(GlobalContext)
-  if(!context) throw Error("Context is not available")
-    const {state , handleAddToCart} = context
   
-  // Talk to backend through HTTP request using api using axios library
-  const getProducts = async () => {
+  const context = useContext(GlobalContext)
+  if (!context) throw Error("Context is not available")
+
+  const { state, handleAddToCart } = context
+
+  const queryClient = useQueryClient()
+  const { toast } = useToast()
+
+  
+  const getProducts = async () => { // This function is defined as an asynchronous function that fetches the list of products from the API using the api.get method.
     try {
-      const res = await api.get("/products")
-      return res.data 
+      const res = await api.get("/products") // Talk to backend through HTTP request using api using axios library
+      return res.data
     } catch (error) {
       console.error(error)
       return Promise.reject(new Error("Something went wrong"))
     }
   }
 
-  // Queries
-  const { data, error } = useQuery<Product[]>({
-    // useQuery-> It provides a declarative and efficient way to handle data fetching, caching, and synchronization with the UI components.
-    queryKey: ["products"],
-    queryFn: getProducts // Query funciton
-
+  const { data, error, isPending } = useQuery<Product[]>({
+    //useQuery Hook is used to fetch the list of products using the getProducts function as the queryFn (query function). useQuery-> It provides a declarative and efficient way to handle data fetching, caching, and synchronization with the UI components.
+    queryKey: ["products"], //The queryKey is set to ["products"], which is a unique identifier for this query.
+    queryFn: getProducts // Query function
   })
+
+  const deleteProducts = async (id: string) => {
+    try {
+      const res = await api.delete(`/products/${id}`)
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+
+  const handleDeleteProduct = async (id: string) => {
+    await deleteProducts(id)
+    queryClient.invalidateQueries({ queryKey: ["products"] })
+  }
+  if (isPending) return "Loading..."
+  if (error) return "An error has occurred: " + error.message
+  
   return (
     <>
       <NavBar />
@@ -94,11 +117,27 @@ export default function Home() {
                   <Button className="w-full" onClick={() => handleAddToCart(product)}>
                     Add to cart
                   </Button>
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => {
+                      handleDeleteProduct(product.id)
+                      toast({
+                        variant: "destructive",
+                        title: "Product Has Been Deleted Successfully."
+                      })
+                    }}
+                  >
+                    Delete
+                  </Button>
+                  <Button className="w-full" >
+                    Update
+                  </Button>
                 </CardFooter>
               </Card>
             ))}
           </section>
-          {error && <p className="text-red-500">{error.message}</p>}
+          {/* {error && <p className="text-red-500">{error.message}</p>} */}
         </div>
       </section>
       <section className="w-full py-12 md:py-24 lg:py-32">
@@ -141,103 +180,4 @@ export default function Home() {
       </footer>
     </>
   )
-}
-
-function FacebookIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  )
-}
-
-function InstagramIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
-  )
-}
-
-function MenuIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
-  )
-}
-
-function MountainIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  )
-}
-
-function TwitterIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-    </svg>
-   )
 }

@@ -59,7 +59,7 @@ export function Cart() {
               )
             })}
           </div>
-          <DrawerFooter>
+          <DrawerFooter >
             <div className="grid gap-2">
               <div className="flex justify-between">
                 <span>Subtotal</span>
@@ -77,7 +77,7 @@ export function Cart() {
             <div className="flex gap-2 mt-4">
               <a href ="/">
                 {" "}
-                <Button variant="outline">Continue Shopping</Button>
+                <Button variant="outline" >Continue Shopping</Button>
               </a>{" "}
               
               <Button>Proceed to Checkout</Button>

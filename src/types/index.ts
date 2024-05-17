@@ -6,3 +6,9 @@ export type Product = {
   image: string
   description: string
 }
+export type Category = {
+   
+    id: string
+    type: string
+  
+}

@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { CircleUser, Link, Menu, Package2, Search } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,6 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -15,13 +17,107 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@radix-ui/react-label"
-import { CircleUser, Link, Menu, Package2, Search } from "lucide-react"
+import api from "@/api"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { Category, Product } from "@/types"
+import { useState } from "react"
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
+import { toast } from "@/components/ui/use-toast"
 
 export function AddProducts() {
-  
+  const queryClient = useQueryClient()
+
+  const [product, setProduct] = useState({
+    name: "",
+    categoryId: "",
+    price: "",
+    image: "",
+    description: ""
+  })
+  const getProducts = async () => {
+    try {
+      const res = await api.get("/products")
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+
+  const { data: getProduct, error: productError } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: getProducts
+  })
+
+  const getCategories = async () => {
+    try {
+      const res = await api.get("/categorys")
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+
+  const { data: getData, error: getError } = useQuery<Category[]>({
+    queryKey: ["categorys"],
+    queryFn: getCategories 
+  })
+
+  const postProducts = async () => {
+    try {
+      const res = await api.post("/products", product)
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("There are require input"))
+    }
+  }
+
+  const { data: postData, error: postError } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: postProducts // Query funciton
+  })
+//_---------------------------------------------------------------------------------------------------------------
+  const deleteProducts = async (id: string) => {
+    try {
+      const res = await api.delete(`/products/${id}`)
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+  const handleDeleteProduct = async (id: string) => {
+    await deleteProducts(id)
+    queryClient.invalidateQueries({ queryKey: ["products"] })
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setProduct({
+      ...product,
+      [name]: value
+    })
+    console.log("{name, value:", { name, value })
+  }
+
+  const handleCategory = (value: string) => {
+    setProduct({
+      ...product,
+      categoryId: value
+    })
+  }
+
+  console.log("product ", product)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await postProducts()
+    queryClient.invalidateQueries({ queryKey: ["products"] })
+  }
+
   return (
     <>
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -127,44 +223,100 @@ export function AddProducts() {
               </p>
             </div>
             <div className="w-full max-w-md">
-              <form className="grid gap-4">
+              <form className="grid gap-4" onSubmit={() => {handleSubmit ;toast({ title: "Product Has been Added Successfully. ✅" })}}>
                 <div className="grid gap-2">
                   <Label htmlFor="name">Product Name</Label>
-                  <Input id="name" placeholder="Enter product name" type="text" />
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="Enter product name"
+                    type="text"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="category">Category</Label>
-                  <Select>
+                  <Select onValueChange={handleCategory} name="categoryId">
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="protein">Protein Powder</SelectItem>
-                      <SelectItem value="vitamin">Vitamins</SelectItem>
-                      <SelectItem value="supplement">Supplements</SelectItem>
+                      {getData?.map((getCategories) => {
+                        return (
+                          <SelectItem key={getCategories.id} value={getCategories.id}>
+                            {getCategories.type}
+                          </SelectItem>
+                        )
+                      })}
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="price">Price</Label>
-                  <Input id="price" placeholder="Enter price" type="number" />
+                  <Input
+                    name="price"
+                    placeholder="Enter price"
+                    type="number"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="image">Image</Label>
-                  <Input id="image" type="file" />
+                  <Input name="image" type="text" onChange={handleChange} />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="description">Description</Label>
-                  <Textarea id="description" placeholder="Enter product description" />
+                  <Textarea
+                    name="description"
+                    placeholder="Enter product description"
+                    onChange={handleChange}
+                  />
                 </div>
-                <Button size="lg" type="submit">
+                <Button
+                  size="lg"
+                  type="submit"
+                >
                   Add Product
                 </Button>
               </form>
             </div>
           </div>
         </div>
+        {postError && <p className="text-red-500">{postError.message}</p>}
+        {productError && <p className="text-red-500">{productError.message}</p>}
       </section>
+
+      {/* <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
+        {getProduct?.map((product) =>  { 
+          return (
+            <div key={product.id}>
+              <Card className="w-[350px]">
+                <img
+                  src={product.image}
+                  alt="Product Image"
+                  // aspect-square object-fit rounded-t-lg
+                  className="aspect-square object-contain rounded-t-lg"
+                  // height="200"
+                  // width="200"
+                />
+                <CardContent className="p-4">
+                  <CardTitle>{product.name}</CardTitle>
+                  <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full">Update</Button>
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => handleDeleteProduct(product.id)}
+                  >
+                    Delete
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          )})}
+      </section> */}
     </>
   )
 }

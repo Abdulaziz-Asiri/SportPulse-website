@@ -1,17 +1,17 @@
 // import { Home } from "lucide-react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
-import { AddProducts } from "./pages/AddProducts.1"
-import Home from "./pages/Home"
+import { createContext, useState } from "react"
+import { AddProducts } from "./pages/AddProducts"
 import { Dashboard } from "./pages/Dashboard"
-import { SingUpForm } from "./pages/SingUp"
+import Home from "./pages/Home"
 import { LoginForm } from "./pages/LogIn"
 import NotFoundPage from "./pages/NotFoundPage"
-import NavBar from "./components/ui/NavigationBar"
-import { BMICalc } from "./pages/BMICalculator"
 import { Products } from "./pages/Products"
-import { createContext, useState } from "react"
+import { SingUpForm } from "./pages/SingUp"
 import { Product } from "./types"
+import Testpage from "./pages/Testpage"
+import { Toaster } from "./components/ui/toaster"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/singup",
     element: <SingUpForm />
+  },
+  {
+    path: "/testpage",
+    element: <Testpage />
   }
 ])
 type GlobalContextType = {
@@ -49,6 +53,7 @@ type GlobalState = {
 }
 export const GlobalContext = createContext<GlobalContextType | null>(null)
 
+
 function App() {
   const [state, setState] = useState<GlobalState>({
     cart: []
@@ -59,7 +64,7 @@ function App() {
     setState({
       ...state,
       cart: [...state.cart, product]
-    })
+    }) 
   }
   const handleDeleteFromCart = (id: string) => {
     const DeleteItem = state.cart.filter((item) => item.id !== id)
@@ -73,6 +78,7 @@ function App() {
       <div className="App">
         <GlobalContext.Provider value={{ state, handleAddToCart, handleDeleteFromCart }}>
           <RouterProvider router={router} />
+          <Toaster />
         </GlobalContext.Provider>
       </div>
     </>

@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { CircleUser, MenuIcon, MinusIcon, MountainIcon,  PlusIcon, Search, ShoppingCartIcon } from "lucide-react"
-import { Input } from "./input"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,16 +7,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./drawer"
-import { useContext } from "react"
-import { GlobalContext } from "@/App"
-import { Cart } from "../cart"
+import {
+  CircleUser,
+  MenuIcon,
+  MountainIcon,
+  Search
+} from "lucide-react"
+import { Cart } from "./Cart"
+import { Input } from "./ui/input"
 
 export default function NavBar() {
-
-    const context = useContext(GlobalContext)
-    if (!context) throw Error("Context is not available")
-    const { state } = context
+  
   return (
     <header className=" fixed top-0 left-0 right-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 border-b bg-white dark:bg-gray-950">
       <a className="flex items-center justify-center" href="#">
