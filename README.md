@@ -10,6 +10,8 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 - [x]  Implement Router
 - [x]  Add and remove products from cart
 - [ ]  Add ✅, Update info and remove products✅ from DB
+- [x]  Fix add product
+- [ ]  Fix product detiles page 
 - [ ]  Search products by name
 - [ ]  Filter products by categories or price
 - [ ]  display product in dashbourd
@@ -36,7 +38,7 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 
 **Functionalities for an Admin:**
 
-- Add a new product, update info of a product, remove a product
+- [x]Add a new product, update info of a product, remove a product
 
 ### Level 2: Additional Requirements
 

@@ -1,6 +1,5 @@
 // import { Home } from "lucide-react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-
 import { createContext, useState } from "react"
 import { AddProducts } from "./pages/AddProducts"
 import { Dashboard } from "./pages/Dashboard"
@@ -12,6 +11,17 @@ import { SingUpForm } from "./pages/SingUp"
 import { Product } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
+
+type GlobalContextType = {
+  state: GlobalState
+  handleAddToCart: (product: Product) => void
+  handleDeleteFromCart: (id: string) => void
+}
+type GlobalState = {
+  cart: Product[]
+}
+export const GlobalContext = createContext<GlobalContextType | null>(null)
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,18 +50,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/testpage",
-    element: <Testpage />
+    element: <Testpage product={GlobalContext} />
   }
 ])
-type GlobalContextType = {
-  state: GlobalState
-  handleAddToCart: (product: Product) => void
-  handleDeleteFromCart: (id: string) => void
-}
-type GlobalState = {
-  cart: Product[]
-}
-export const GlobalContext = createContext<GlobalContextType | null>(null)
 
 
 function App() {

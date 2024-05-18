@@ -47,9 +47,9 @@ export default function NavBar() {
               placeholder="Search products..."
               className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
             />
-            <Cart /> {/*Cart component */}
           </div>
         </form>
+            <Cart /> {/*Cart component */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">

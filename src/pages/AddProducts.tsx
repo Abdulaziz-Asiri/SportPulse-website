@@ -25,14 +25,16 @@ import { Category, Product } from "@/types"
 import { useState } from "react"
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
+import UpdateProductDailog from "@/components/UpdateProductDailog"
 
 export function AddProducts() {
+
   const queryClient = useQueryClient()
 
   const [product, setProduct] = useState({
     name: "",
     categoryId: "",
-    price: "",
+    price: 0,
     image: "",
     description: ""
   })
@@ -46,11 +48,11 @@ export function AddProducts() {
     }
   }
 
-  const { data: getProduct, error: productError } = useQuery<Product[]>({
+  const { data: getProductData, error, isPending } = useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: getProducts
   })
-
+  
   const getCategories = async () => {
     try {
       const res = await api.get("/categorys")
@@ -61,9 +63,9 @@ export function AddProducts() {
     }
   }
 
-  const { data: getData, error: getError } = useQuery<Category[]>({
+  const { data: getCategoryData, error: getError } = useQuery<Category[]>({
     queryKey: ["categorys"],
-    queryFn: getCategories 
+    queryFn: getCategories
   })
 
   const postProducts = async () => {
@@ -72,15 +74,11 @@ export function AddProducts() {
       return res.data
     } catch (error) {
       console.error(error)
-      return Promise.reject(new Error("There are require input"))
+      return Promise.reject(new Error("There is require input"))
     }
   }
 
-  const { data: postData, error: postError } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: postProducts // Query funciton
-  })
-//_---------------------------------------------------------------------------------------------------------------
+
   const deleteProducts = async (id: string) => {
     try {
       const res = await api.delete(`/products/${id}`)
@@ -101,7 +99,6 @@ export function AddProducts() {
       ...product,
       [name]: value
     })
-    console.log("{name, value:", { name, value })
   }
 
   const handleCategory = (value: string) => {
@@ -111,12 +108,13 @@ export function AddProducts() {
     })
   }
 
-  console.log("product ", product)
   const handleSubmit = async (e) => {
+  
     e.preventDefault()
     await postProducts()
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
+console.log("product ", product)
 
   return (
     <>
@@ -223,7 +221,7 @@ export function AddProducts() {
               </p>
             </div>
             <div className="w-full max-w-md">
-              <form className="grid gap-4" onSubmit={() => {handleSubmit ;toast({ title: "Product Has been Added Successfully. ✅" })}}>
+              <form className="grid gap-4" onSubmit={handleSubmit}>
                 <div className="grid gap-2">
                   <Label htmlFor="name">Product Name</Label>
                   <Input
@@ -241,7 +239,7 @@ export function AddProducts() {
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      {getData?.map((getCategories) => {
+                      {getCategoryData?.map((getCategories) => {
                         return (
                           <SelectItem key={getCategories.id} value={getCategories.id}>
                             {getCategories.type}
@@ -272,51 +270,46 @@ export function AddProducts() {
                     onChange={handleChange}
                   />
                 </div>
-                <Button
-                  size="lg"
-                  type="submit"
-                >
+                <Button size="lg" type="submit">
                   Add Product
                 </Button>
+
               </form>
             </div>
           </div>
         </div>
-        {postError && <p className="text-red-500">{postError.message}</p>}
-        {productError && <p className="text-red-500">{productError.message}</p>}
+        {/* {postError && <p className="text-red-500">{postError.message}</p>} */}
       </section>
 
-      {/* <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
-        {getProduct?.map((product) =>  { 
-          return (
-            <div key={product.id}>
-              <Card className="w-[350px]">
-                <img
-                  src={product.image}
-                  alt="Product Image"
-                  // aspect-square object-fit rounded-t-lg
-                  className="aspect-square object-contain rounded-t-lg"
-                  // height="200"
-                  // width="200"
-                />
-                <CardContent className="p-4">
-                  <CardTitle>{product.name}</CardTitle>
-                  <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full">Update</Button>
-                  <Button
-                    variant="destructive"
-                    className="w-full"
-                    onClick={() => handleDeleteProduct(product.id)}
-                  >
-                    Delete
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
-          )})}
-      </section> */}
+      <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
+        {Array.isArray(getProductData) &&
+          getProductData?.map((product) => {
+            return (
+              <div key={product.id}>
+                <Card className="w-[350px]">
+                  <img
+                    src={product.image}
+                    alt="Product Image"
+                    className="aspect-square object-contain rounded-t-lg"
+                  />
+                  <CardContent className="p-4">
+                    <CardTitle>{product.name}</CardTitle>
+                    <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <UpdateProductDailog product={product} />
+                    <Button
+                      variant="destructive"
+                      className="w-full"
+                      onClick={() => handleDeleteProduct(product.id)}>
+                      Delete
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            )
+          })}
+      </section>
     </>
   )
 }
