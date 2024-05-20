@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "lucide-react"
 
-export function SingUpForm() {
+export function SingUp() {
   return (
     <div className ="gap-">
       <Card className="mx-auto max-w-sm">

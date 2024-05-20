@@ -26,6 +26,7 @@ import { useState } from "react"
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
 import UpdateProductDailog from "@/components/UpdateProductDailog"
+import { NavBarForAdmin } from "@/components/NavBarForAdmin"
 
 export function AddProducts() {
 
@@ -118,97 +119,7 @@ console.log("product ", product)
 
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
-        <nav className="hidden flex-col gap- text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-          <a href="#" className="flex items-center gap-2 text-lg font-semibold md:text-base">
-            <Package2 className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
-          </a>
-          <a href="/" className="text-foreground transition-colors hover:text-foreground">
-            Home
-          </a>
-          <a href="/Dashboard" className="text-foreground transition-colors hover:text-foreground">
-            Dashboard
-          </a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-            Orders
-          </a>
-          <a
-            href="/products"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Add Products
-          </a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-            Customers
-          </a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-            Analytics
-          </a>
-        </nav>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle navigation menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left">
-            <nav className="grid gap-6 text-lg font-medium">
-              <Link href="#" className="flex items-center gap-2 text-lg font-semibold">
-                <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
-              </Link>
-              <Link href="#" className="hover:text-foreground">
-                Dashboard
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                Orders
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                Products
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                Customers
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                Analytics
-              </Link>
-            </nav>
-          </SheetContent>
-        </Sheet>
-        <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          <form className="ml-auto flex-1 sm:flex-initial">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-              />
-            </div>
-          </form>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <a href="/dashboard">Dashboard</a>
-              </DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </header>
+      <NavBarForAdmin />
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
         <div className="container">
           <div className="flex flex-col items-center space-y-4 text-center">
@@ -304,11 +215,13 @@ console.log("product ", product)
                     <Button
                       variant="destructive"
                       className="w-full"
-                      onClick={() => {handleDeleteProduct(product.id);
+                      onClick={() => {
+                        handleDeleteProduct(product.id)
                         toast({
-                        variant: "destructive",
-                        title: "Product Has Been Deleted Successfully."
-                      })}}
+                          variant: "destructive",
+                          title: "Product Has Been Deleted Successfully."
+                        })
+                      }}
                     >
                       Delete
                     </Button>

@@ -1,11 +1,11 @@
+import api from "@/api"
+import NavBar from "@/components/NavigationBar"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 import { Button } from "@/components/ui/button"
 import { CardContent, Card, CardTitle, CardFooter } from "@/components/ui/card"
 import { Product } from "@/types"
 import videoH from "../assets/ProteinAd.mp4"
-import api from "@/api"
-import NavBar from "@/components/NavigationBar"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
@@ -38,20 +38,6 @@ export default function Home() {
     queryFn: getProducts // Query function
   })
 
-  const deleteProducts = async (id: string) => {
-    try {
-      const res = await api.delete(`/products/${id}`)
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
-
-  const handleDeleteProduct = async (id: string) => {
-    await deleteProducts(id)
-    queryClient.invalidateQueries({ queryKey: ["products"] })
-  }
   if (isPending) return "Loading..."
   if (error) return "An error has occurred: " + error.message
 

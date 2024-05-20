@@ -9,17 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {
   CircleUser,
+  Dumbbell,
   MenuIcon,
-  MountainIcon,
-  Search,
-  SearchIcon
 } from "lucide-react"
 import { Cart } from "./Cart"
-import { Input } from "./ui/input"
-import { ChangeEvent, createContext, useState } from "react"
-import { Product } from "@/types"
-import { useQuery } from "@tanstack/react-query"
-import api from "@/api"
 
 
 
@@ -27,8 +20,8 @@ export default function NavBar() {
   
   return (
     <header className=" fixed top-0 left-0 right-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 border-b bg-white dark:bg-gray-950">
-      <a className="flex items-center justify-center" href="#">
-        <MountainIcon className="h-6 w-6" />
+      <a className="flex items-center justify-center" href="/">
+        <Dumbbell className="h-12 w-12" />
         <span className="sr-only">Acme Inc</span>
       </a>
       <nav className=" ml-auto hidden gap-4 sm:gap-6 lg:flex">
@@ -52,7 +45,6 @@ export default function NavBar() {
             Contact
           </a>
         </div>
-        
         <Cart /> {/*Cart component */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

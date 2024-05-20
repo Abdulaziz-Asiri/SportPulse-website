@@ -4,10 +4,10 @@ import { createContext, useState } from "react"
 import { AddProducts } from "./pages/AddProducts"
 import { Dashboard } from "./pages/Dashboard"
 import Home from "./pages/Home"
-import { LoginForm } from "./pages/LogIn"
+import { Login, LoginForm } from "./pages/LogIn"
 import NotFoundPage from "./pages/NotFoundPage"
 import { Products } from "./pages/Products"
-import { SingUpForm } from "./pages/SingUp"
+import { SingUp, SingUpForm } from "./pages/SingUp"
 import { Product } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <Dashboard />
   },
   {
-    path: "/Addproducts",
+    path: "/addproducts",
     element: <AddProducts />
   },
   {
@@ -43,11 +43,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginForm />
+    element: <Login />
   },
   {
     path: "/singup",
-    element: <SingUpForm />
+    element: <SingUp />
   },
   {
     path: "/testpage",
