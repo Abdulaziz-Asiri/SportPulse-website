@@ -9,6 +9,7 @@ import { useContext, useState } from "react"
 import Home from "./Home"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
+import SearchBar from "@/components/SearchBar"
 
 export function Products() {
   const context = useContext(GlobalContext)
@@ -39,8 +40,8 @@ export function Products() {
   return (
     <>
       <NavBar />
-
-      <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
+      <SearchBar />
+      <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap  mt-24">
         {data?.map((product) => (
           <Card key={product.id} className="w-[350px]">
             <img

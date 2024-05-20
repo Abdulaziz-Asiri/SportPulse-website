@@ -15,10 +15,12 @@ export default function ErrorPage() {
             We're sorry, but there seems to be an issue with the request. Please try again later.
           </p>
         </div>
-        <Button className="flex items-center gap-2" variant="outline" onClick = "">
-          <RefreshCwIcon className="h-4 w-4" />
-          Retry
-        </Button>
+        <a>
+          <Button className="flex items-center gap-2" variant="outline">
+            <RefreshCwIcon className="h-4 w-4" />
+            Retry
+          </Button>
+        </a>
       </div>
     </div>
   )

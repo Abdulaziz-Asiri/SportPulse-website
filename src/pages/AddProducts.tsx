@@ -27,6 +27,7 @@ import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
 import UpdateProductDailog from "@/components/UpdateProductDailog"
 import { NavBarForAdmin } from "@/components/NavBarForAdmin"
+import SearchBar from "@/components/SearchBar"
 
 export function AddProducts() {
 
@@ -195,8 +196,9 @@ console.log("product ", product)
         {/* {postError && <p className="text-red-500">{postError.message}</p>} */}
       </section>
 
+      <SearchBar />
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
-        {Array.isArray(getProductData) &&
+        {
           getProductData?.map((product) => {
             return (
               <div key={product.id}>
