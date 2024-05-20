@@ -11,10 +11,17 @@ import {
   CircleUser,
   MenuIcon,
   MountainIcon,
-  Search
+  Search,
+  SearchIcon
 } from "lucide-react"
 import { Cart } from "./Cart"
 import { Input } from "./ui/input"
+import { ChangeEvent, createContext, useState } from "react"
+import { Product } from "@/types"
+import { useQuery } from "@tanstack/react-query"
+import api from "@/api"
+
+
 
 export default function NavBar() {
   
@@ -32,24 +39,21 @@ export default function NavBar() {
           <a className="text-sm font-medium hover:underline underline-offset-4" href="/products">
             Products
           </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
+          <a
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="/NotFoundPage"
+          >
             About
           </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
+          <a
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="/NotFoundPage"
+          >
             Contact
           </a>
         </div>
-        <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
-          </div>
-        </form>
-            <Cart /> {/*Cart component */}
+        
+        <Cart /> {/*Cart component */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">

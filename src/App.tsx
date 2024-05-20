@@ -11,6 +11,7 @@ import { SingUpForm } from "./pages/SingUp"
 import { Product } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
+import LoadingPage from "./components/LoadingPage"
 
 type GlobalContextType = {
   state: GlobalState
@@ -50,10 +51,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/testpage",
-    element: <Testpage product={GlobalContext} />
+    element: <Testpage />
   }
 ])
-
 
 function App() {
   const [state, setState] = useState<GlobalState>({
@@ -65,7 +65,7 @@ function App() {
     setState({
       ...state,
       cart: [...state.cart, product]
-    }) 
+    })
   }
   const handleDeleteFromCart = (id: string) => {
     const DeleteItem = state.cart.filter((item) => item.id !== id)

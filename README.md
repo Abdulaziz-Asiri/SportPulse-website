@@ -9,15 +9,16 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 - [x]  SingUp page
 - [x]  Implement Router
 - [x]  Add and remove products from cart
-- [ ]  Add ✅, Update info and remove products✅ from DB
+- [x]  Add ✅, Update info✅ and remove products✅ from DB
 - [x]  Fix add product
-- [ ]  Fix product detiles page 
 - [ ]  Search products by name
 - [ ]  Filter products by categories or price
+- [ ]  Fix product detiles page 
+- [x]  Fix update button in product in addProduct page
 - [ ]  display product in dashbourd
 - [ ]  fix cart incressing and total amount
+- [ ]  fix image return in search results
 - [ ]  implement confirmation dialog
-- [ ]  alis query  “data: name i want”
 - [ ]  
 - [ ] 
 ### Level 1: Basic Requirements

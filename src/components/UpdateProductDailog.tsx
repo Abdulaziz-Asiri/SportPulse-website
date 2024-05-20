@@ -45,16 +45,21 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
   }
 
   const handleUpdatedChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
+    const { name,value } = e.target
     setUpdatedProduct({
       ...updatedProduct,
-      name: value
+      [name]: value
     })
+    console.log('[name]: value:', name, value)
   }
 
   const handleUpdate = async () => {
     await updateProduct()
     queryClient.invalidateQueries({ queryKey: ["products"] })
+    toast({
+      title: "Product Has Been Updated Successfully. ✅"
+    })
+    //  toast(`Found ${searchResults.length} results for "${searchTerm}"`)
   }
   const getCategories = async () => {
     try {
@@ -65,7 +70,7 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
-  const { data: getData, error: getError } = useQuery<Category[]>({
+  const { data: getCategory, error: getCategoryError } = useQuery<Category[]>({
     queryKey: ["categorys"],
     queryFn: getCategories
   })
@@ -102,7 +107,7 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
                 <SelectValue placeholder={product.categoryId} />
               </SelectTrigger>
               <SelectContent onChange={handleUpdatedChange}>
-                {getData?.map((getCategories) => {
+                {getCategory?.map((getCategories) => {
                   return (
                     <SelectItem key={getCategories.id} value={getCategories.id}>
                       {getCategories.type}
@@ -140,9 +145,13 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
                 }}
                 width={300}
               />
-              <Button size="sm" variant="outline">
-                Upload Image
-              </Button>
+              <Input
+                className="col-span-3"
+                defaultValue={updatedProduct.image}
+                name="image"
+                type="text"
+                onChange={handleUpdatedChange}
+              />
             </div>
           </div>
           <div className="grid grid-cols-4 items-start gap-4">
@@ -153,6 +162,7 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
               name="description"
               className="col-span-3 min-h-[120px]"
               defaultValue={updatedProduct.description}
+              
               onChange={handleUpdatedChange}
             />
           </div>

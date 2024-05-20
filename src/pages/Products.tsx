@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { Product } from "@/types"
 import { useQuery } from "@tanstack/react-query"
-import { useContext } from "react"
+import { useContext, useState } from "react"
+import Home from "./Home"
+import LoadingPage from "@/components/LoadingPage"
+import ErrorPage from "@/components/ErrorPage"
 
 export function Products() {
   const context = useContext(GlobalContext)
@@ -13,7 +16,7 @@ export function Products() {
 
   const { state, handleAddToCart } = context
   
-  // Talk to backend through HTTP request using api using axios library
+  // // Talk to backend through HTTP request using api using axios library
   const getProducts = async () => {
     try {
       const res = await api.get("/products")
@@ -30,8 +33,8 @@ export function Products() {
     queryFn: getProducts // Query funciton
   })
 
-  if (isPending) return "Loading..."
-  if (error) return "An error has occurred: " + error.message
+  if (isPending) return <LoadingPage/>
+  if (error) return  <ErrorPage/>
   
   return (
     <>

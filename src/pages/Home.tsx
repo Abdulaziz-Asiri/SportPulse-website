@@ -54,7 +54,7 @@ export default function Home() {
   }
   if (isPending) return "Loading..."
   if (error) return "An error has occurred: " + error.message
-  
+
   return (
     <>
       <NavBar />
@@ -116,22 +116,6 @@ export default function Home() {
                 <CardFooter>
                   <Button className="w-full" onClick={() => handleAddToCart(product)}>
                     Add to cart
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    className="w-full"
-                    onClick={() => {
-                      handleDeleteProduct(product.id)
-                      toast({
-                        variant: "destructive",
-                        title: "Product Has Been Deleted Successfully."
-                      })
-                    }}
-                  >
-                    Delete
-                  </Button>
-                  <Button className="w-full" >
-                    Update
                   </Button>
                 </CardFooter>
               </Card>

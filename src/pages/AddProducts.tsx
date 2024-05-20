@@ -225,7 +225,6 @@ console.log("product ", product)
                 <div className="grid gap-2">
                   <Label htmlFor="name">Product Name</Label>
                   <Input
-                    id="name"
                     name="name"
                     placeholder="Enter product name"
                     type="text"
@@ -260,7 +259,12 @@ console.log("product ", product)
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="image">Image</Label>
-                  <Input name="image" type="text" onChange={handleChange} />
+                  <Input
+                    name="Image"
+                    type="text"
+                    placeholder="Enter image URL"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="description">Description</Label>
@@ -273,7 +277,6 @@ console.log("product ", product)
                 <Button size="lg" type="submit">
                   Add Product
                 </Button>
-
               </form>
             </div>
           </div>
@@ -301,7 +304,12 @@ console.log("product ", product)
                     <Button
                       variant="destructive"
                       className="w-full"
-                      onClick={() => handleDeleteProduct(product.id)}>
+                      onClick={() => {handleDeleteProduct(product.id);
+                        toast({
+                        variant: "destructive",
+                        title: "Product Has Been Deleted Successfully."
+                      })}}
+                    >
                       Delete
                     </Button>
                   </CardFooter>
