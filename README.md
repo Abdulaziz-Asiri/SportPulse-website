@@ -11,9 +11,9 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 - [x]  Add and remove products from cart
 - [x]  Add ✅, Update info✅ and remove products✅ from DB
 - [x]  Fix add product
+- [x]  Fix update button in product in addProduct page
 - [x]  Search products by name
 - [ ]  Filter products by categories or price
-- [x]  Fix update button in product in addProduct page
 - [ ]  display product in dashbourd
 - [ ]  fix cart incressing and total amount
 - [ ]  implement confirmation dialog

@@ -4,14 +4,14 @@ import { createContext, useState } from "react"
 import { AddProducts } from "./pages/AddProducts"
 import { Dashboard } from "./pages/Dashboard"
 import Home from "./pages/Home"
-import { Login, LoginForm } from "./pages/LogIn"
+import { Login } from "./pages/LogIn"
 import NotFoundPage from "./pages/NotFoundPage"
 import { Products } from "./pages/Products"
-import { SingUp, SingUpForm } from "./pages/SingUp"
+import { SingUp } from "./pages/SingUp"
 import { Product } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
-import LoadingPage from "./components/LoadingPage"
+
 
 type GlobalContextType = {
   state: GlobalState

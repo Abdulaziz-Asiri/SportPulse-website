@@ -12,3 +12,11 @@ export type Category = {
     type: string
   
 }
+
+export type  User = {
+
+  name: string
+  password: string
+  email: string
+  phone: string
+}
