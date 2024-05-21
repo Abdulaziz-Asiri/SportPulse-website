@@ -12,6 +12,7 @@ import { Product } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
 import LoadingPage from "./components/LoadingPage"
+import UsersManagement from "./pages/UsersManagement"
 
 type GlobalContextType = {
   state: GlobalState
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/testpage",
     element: <Testpage />
+  },
+  {
+    path: "/usersmanagment",
+    element: <UsersManagement />
   }
 ])
 

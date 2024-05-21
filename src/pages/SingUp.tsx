@@ -37,14 +37,11 @@ export function SingUp() {
             <Button type="submit" className="w-full">
               Create an account
             </Button>
-            <Button variant="outline" className="w-full">
-              Sign up with GitHub
-            </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <a href="#" className="underline">
-              Sign in
+            <a href="LogIn" className="underline">
+              Log in
             </a>
           </div>
         </CardContent>
