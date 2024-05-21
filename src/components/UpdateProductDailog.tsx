@@ -35,8 +35,13 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
   console.log("updatedProduct:", updatedProduct)
 
   const updateProduct = async () => {
+    const token = localStorage.getItem("token")
     try {
-      const res = await api.patch(`/products/${updatedProduct.id}`, updatedProduct)
+      const res = await api.patch(`/products/${updatedProduct.id}`, updatedProduct, {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
       return res.data
     } catch (error) {
       console.error(error)

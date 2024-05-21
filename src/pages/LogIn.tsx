@@ -1,6 +1,7 @@
 // import Link from "next/link"
 
 import api from "@/api"
+import NavBar from "@/components/NavigationBar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -35,18 +36,18 @@ export function Login() {
 
   const handleLogInUser = async (e: FormEvent) => {
     e.preventDefault()
-    const response =await handleLogIn()
-    const token = await handleLogIn()// The response will be a token number from the server
-    localStorage.setItem("token", token)// Store the token in localStorage of browser
-    if (response) {
+    const token = await handleLogIn() // The response will be a token number from the server
+    localStorage.setItem("token", token) // Store the token in localStorage of browser
+    if (token) {
       navigation("/")
     }
     console.log("repose:", token)
   }
 
   return (
-    <Card className="mx-auto max-w-sm">
-      
+    <>
+      <NavBar />
+      <Card className="mx-auto max-w-sm mt-36">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>Enter your email below to login to your account</CardDescription>
@@ -88,7 +89,7 @@ export function Login() {
             </div>
           </form>
         </CardContent>
-      
-    </Card>
+      </Card>
+    </>
   )
 }

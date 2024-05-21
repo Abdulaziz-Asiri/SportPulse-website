@@ -71,8 +71,13 @@ export function AddProducts() {
   })
 
   const postProducts = async () => {
+    const token = localStorage.getItem("token")
     try {
-      const res = await api.post("/products", product)
+      const res = await api.post("/products", product, {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
       return res.data
     } catch (error) {
       console.error(error)
@@ -82,8 +87,13 @@ export function AddProducts() {
 
 
   const deleteProducts = async (id: string) => {
+    const token = localStorage.getItem("token")
     try {
-      const res = await api.delete(`/products/${id}`)
+      const res = await api.delete(`/products/${id}`, {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
       return res.data
     } catch (error) {
       console.error(error)

@@ -16,6 +16,7 @@ export type Category = {
 export type  User = {
 
   name: string
+  role: string
   password: string
   email: string
   phone: string

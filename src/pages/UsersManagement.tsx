@@ -15,8 +15,38 @@ import {
   DropdownMenu
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
+import api from "@/api"
+import { useQuery } from "@tanstack/react-query"
+import { User } from "@/types"
 
 export default function UsersManagement() {
+
+    const getUser = async () => {
+      try {
+        const token = localStorage.getItem("token")
+        const res = await api.get("/users", {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+      } catch (error) {
+        console.error(error)
+        return Promise.reject(new Error("Something went wrong, We can't get the user"))
+      }
+    }
+
+    const {
+      data: getUsers,
+      error,
+      isPending
+    } = useQuery<User[]>({
+        queryKey: ["Users"],
+        queryFn: getUser
+    })
+    
+    console.log('AllUsers:', getUsers)
+
   return (
     <div className="flex flex-col gap-8 p-4 md:p-6">
       <div className="flex w-full max-w-md items-center space-x-2">

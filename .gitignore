@@ -28,8 +28,5 @@ dist-ssr
 Testpage.tsx
 testcode.txt
 assets
-<<<<<<< HEAD
 README.md
-
-=======
->>>>>>> main
+UsersManagement.tsx
