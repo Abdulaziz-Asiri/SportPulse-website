@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/HnRB57hdudp
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -33,7 +28,6 @@ export default function UsersManagement() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[32px]">
-                <Checkbox id="select-all" />
               </TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>

@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card, CardTitle, CardFooter } from "@/components/ui/card"
 import { Product } from "@/types"
-import videoH from "../assets/ProteinAd.mp4"
+import videoH from "../assets/ProteinAd2.mp4"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
@@ -44,7 +44,9 @@ export default function Home() {
   return (
     <>
       <NavBar />
+
       <section className="w-full relative">
+        <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
         <video
           className="absolute inset-0 z-[-1] h-full w-full object-cover"
           height={1500}
@@ -58,7 +60,6 @@ export default function Home() {
           loop
           muted
         />
-        <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
               Fuel Your Body with Premium Nutrition Supplements
