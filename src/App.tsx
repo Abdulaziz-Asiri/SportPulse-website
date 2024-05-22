@@ -1,6 +1,6 @@
 // import { Home } from "lucide-react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { AddProducts } from "./pages/AddProducts"
 import { Dashboard } from "./pages/Dashboard"
 import Home from "./pages/Home"
@@ -8,22 +8,11 @@ import { Login } from "./pages/LogIn"
 import NotFoundPage from "./pages/NotFoundPage"
 import { Products } from "./pages/Products"
 import { SingUp } from "./pages/SingUp"
-import { Product } from "./types"
+import { DecodedUser, Product } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
-import LoadingPage from "./components/LoadingPage"
 import UsersManagement from "./pages/UsersManagement"
-
-
-type GlobalContextType = {
-  state: GlobalState
-  handleAddToCart: (product: Product) => void
-  handleDeleteFromCart: (id: string) => void
-}
-type GlobalState = {
-  cart: Product[]
-}
-export const GlobalContext = createContext<GlobalContextType | null>(null)
+import { PrivateRoute } from "./components/PrivateRoute"
 
 const router = createBrowserRouter([
   {
@@ -33,11 +22,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    )
   },
   {
     path: "/addproducts",
-    element: <AddProducts />
+    element: (
+      <PrivateRoute>
+        <AddProducts />
+      </PrivateRoute>
+    )
   },
   {
     path: "/products",
@@ -57,14 +54,44 @@ const router = createBrowserRouter([
   },
   {
     path: "/usersmanagment",
-    element: <UsersManagement />
+    element: (
+      <PrivateRoute>
+        <UsersManagement />
+      </PrivateRoute>
+    )
   }
 ])
 
+type GlobalContextType = {
+  state: GlobalState
+  handleAddToCart: (product: Product) => void
+  handleDeleteFromCart: (id: string) => void
+  handleStoreUser: (user: DecodedUser) => void
+  handleRemoveUser: () => void
+}
+type GlobalState = {
+  cart: Product[]
+  user: DecodedUser | null
+}
+export const GlobalContext = createContext<GlobalContextType | null>(null)
+
 function App() {
   const [state, setState] = useState<GlobalState>({
-    cart: []
+    cart: [],
+    user: null
   })
+
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+    if (user) {
+      const decodedUser = JSON.parse(user)
+      setState({
+        ...state,
+        user: decodedUser
+      })
+    }
+  }, [])
+
   const handleAddToCart = (product: Product) => {
     const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
     if (isDuplicated) return
@@ -80,10 +107,32 @@ function App() {
       cart: DeleteItem
     })
   }
+  const handleRemoveUser = () => {
+    setState({
+      ...state,
+      user: null
+    })
+  }
+  const handleStoreUser = (user: DecodedUser) => {
+    setState({
+      ...state,
+      user
+    })
+  }
+  
+
   return (
     <>
       <div className="App">
-        <GlobalContext.Provider value={{ state, handleAddToCart, handleDeleteFromCart }}>
+        <GlobalContext.Provider
+          value={{
+            state,
+            handleAddToCart,
+            handleDeleteFromCart,
+            handleStoreUser,
+            handleRemoveUser
+          }}
+        >
           <RouterProvider router={router} />
           <Toaster />
         </GlobalContext.Provider>

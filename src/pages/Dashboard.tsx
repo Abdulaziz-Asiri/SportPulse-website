@@ -29,7 +29,7 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
+  TableHead,  
   TableHeader,
   TableRow
 } from "@/components/ui/table"

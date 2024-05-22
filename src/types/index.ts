@@ -14,10 +14,26 @@ export type Category = {
 }
 
 export type  User = {
-
+  id: string
   name: string
   role: string
   password: string
   email: string
   phone: string
 }
+
+export  const ROLE = {
+  Admin: "Admin",
+  Customer: "Customer"
+} as const
+
+export type DecodedUser = {
+  aud: string
+  emiladdress: string
+  exp: number
+  iss: string
+  name: string
+  role: keyof typeof ROLE
+}
+
+

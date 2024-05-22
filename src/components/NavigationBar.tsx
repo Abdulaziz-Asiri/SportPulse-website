@@ -7,22 +7,37 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import {
-  CircleUser,
-  Dumbbell,
-  MenuIcon,
-} from "lucide-react"
+import { CircleUser, Dumbbell, MenuIcon } from "lucide-react"
 import { Cart } from "./Cart"
-
-
+import { useContext } from "react"
+import { GlobalContext } from "@/App"
+import { ROLE } from "@/types"
+import { Navigate, useNavigate } from "react-router-dom"
 
 export default function NavBar() {
-  
+   const navigation = useNavigate()
+  const context = useContext(GlobalContext)
+  if (!context) throw Error("Context is not available")
+
+  const { state, handleRemoveUser } = context
+   console.log("state:", state)
+
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    handleRemoveUser()
+  }
+  const handleLoginClick = () => {
+    navigation("/login")
+  }
+  const handleSignUPClick = () => {
+    navigation("/SingUp")
+  }
+
   return (
     <header className=" fixed top-0 left-0 right-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 border-b bg-white dark:bg-gray-950">
       <a className="flex items-center justify-center" href="/">
         <Dumbbell className="h-12 w-12" />
-        <span className="sr-only">Acme Inc</span>
       </a>
       <nav className=" ml-auto hidden gap-4 sm:gap-6 lg:flex">
         <div className="sm:gap-10 flex  items-center   ">
@@ -32,18 +47,29 @@ export default function NavBar() {
           <a className="text-sm font-medium hover:underline underline-offset-4" href="/products">
             Products
           </a>
+          <a className="text-sm font-medium hover:underline underline-offset-4" href="/login">
+            Contact Us
+          </a>
           <a
             className="text-sm font-medium hover:underline underline-offset-4"
             href="/NotFoundPage"
           >
             About
           </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="/NotFoundPage"
-          >
-            Contact
-          </a>
+          <div className="flex items-center gap-2">
+            <Button
+              className="hidden md:inline-flex"
+              size="sm"
+              variant="outline"
+              onClick={handleLoginClick}
+            >
+              Log In
+            </Button>
+
+            <Button size="sm" onClick={handleSignUPClick}>
+              Sign Up
+            </Button>
+          </div>
         </div>
         <Cart /> {/*Cart component */}
         <DropdownMenu>
@@ -56,13 +82,22 @@ export default function NavBar() {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <a href="/dashboard">Dashboard</a>
-            </DropdownMenuItem>
+            {state.user?.role === ROLE.Admin && ( // Protect component from customers
+              <DropdownMenuItem>
+                <a href="/dashboard">Dashboard</a>
+              </DropdownMenuItem>
+            )}
+
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            {state.user && (
+              <DropdownMenuItem>
+                <Button variant="outline" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </nav>

@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import api from "@/api"
 import { useQuery } from "@tanstack/react-query"
 import { User } from "@/types"
+import { NavBarForAdmin } from "@/components/NavBarForAdmin"
 
 export default function UsersManagement() {
 
@@ -48,6 +49,8 @@ export default function UsersManagement() {
     console.log('AllUsers:', getUsers)
 
   return (
+    <>
+    <NavBarForAdmin/>
     <div className="flex flex-col gap-8 p-4 md:p-6">
       <div className="flex w-full max-w-md items-center space-x-2">
         <Input className="flex-1" placeholder="Search users..." type="search" />
@@ -66,102 +69,60 @@ export default function UsersManagement() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>
-                <Checkbox id="select-1" />
-              </TableCell>
-              <TableCell className="font-medium">John Doe</TableCell>
-              <TableCell>john@example.com</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="icon" variant="ghost">
-                      <MoveHorizontalIcon className="h-5 w-5" />
-                      <span className="sr-only">User actions</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>View</DropdownMenuItem>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Checkbox id="select-2" />
-              </TableCell>
-              <TableCell className="font-medium">Jane Smith</TableCell>
-              <TableCell>jane@example.com</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="icon" variant="ghost">
-                      <MoveHorizontalIcon className="h-5 w-5" />
-                      <span className="sr-only">User actions</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>View</DropdownMenuItem>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Checkbox id="select-3" />
-              </TableCell>
-              <TableCell className="font-medium">Bob Johnson</TableCell>
-              <TableCell>bob@example.com</TableCell>
-              <TableCell>Blocked</TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="icon" variant="ghost">
-                      <MoveHorizontalIcon className="h-5 w-5" />
-                      <span className="sr-only">User actions</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>View</DropdownMenuItem>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem className="text-green-500">Unblock</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Checkbox id="select-4" />
-              </TableCell>
-              <TableCell className="font-medium">Sarah Lee</TableCell>
-              <TableCell>sarah@example.com</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell className="text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="icon" variant="ghost">
-                      <MoveHorizontalIcon className="h-5 w-5" />
-                      <span className="sr-only">User actions</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>View</DropdownMenuItem>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
-            </TableRow>
+            { getUsers?.map((user) =>{
+              return (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Checkbox id="select-1" />
+                  </TableCell>
+                  <TableCell className="font-medium">{user.name}</TableCell>
+                  <TableCell>
+                    <TableRow>
+                      <TableCell>
+                        <Checkbox id="select-1" />
+                      </TableCell>
+                      <TableCell className="font-medium">John Doe</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.role}</TableCell>
+                      <TableCell>{user.phone}</TableCell>
+                      <TableCell className="text-right">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button size="icon" variant="ghost">
+                              <MoveHorizontalIcon className="h-5 w-5" />
+                              <span className="sr-only">User actions</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem>View</DropdownMenuItem>
+                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                            <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
+                            <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  </TableCell>
+                  <TableCell>Active</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button size="icon" variant="ghost">
+                          <MoveHorizontalIcon className="h-5 w-5" />
+                          <span className="sr-only">User actions</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>View</DropdownMenuItem>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </div>
@@ -169,6 +130,7 @@ export default function UsersManagement() {
         <Button variant="destructive">Delete Selected</Button>
       </div>
     </div>
+</>
   )
 }
 

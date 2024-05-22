@@ -17,7 +17,7 @@ export function Products() {
 
   const { state, handleAddToCart } = context
   
-  // // Talk to backend through HTTP request using api using axios library
+  // Talk to backend through HTTP request using api using axios library
   const getProducts = async () => {
     try {
       const res = await api.get("/products")

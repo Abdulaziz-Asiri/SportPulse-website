@@ -17,6 +17,7 @@ export default function Home() {
   if (!context) throw Error("Context is not available")
 
   const { state, handleAddToCart } = context
+ 
 
   const queryClient = useQueryClient()
   const { toast } = useToast()
