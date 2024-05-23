@@ -1,14 +1,9 @@
-import { CircleUser, Link, Menu, Package2, Search } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
+import api from "@/api"
+import { NavBarForAdmin } from "@/components/NavBarForAdmin"
+import SearchBar from "@/components/SearchBar"
+import UpdateProductDailog from "@/components/UpdateProductDailog"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import {
   Select,
@@ -18,16 +13,11 @@ import {
   SelectValue
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@radix-ui/react-label"
-import api from "@/api"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { Category, Product } from "@/types"
-import { useState } from "react"
-import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card"
 import { toast } from "@/components/ui/use-toast"
-import UpdateProductDailog from "@/components/UpdateProductDailog"
-import { NavBarForAdmin } from "@/components/NavBarForAdmin"
-import SearchBar from "@/components/SearchBar"
+import { Category, Product } from "@/types"
+import { Label } from "@radix-ui/react-label"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useState } from "react"
 
 export function AddProducts() {
 
@@ -126,7 +116,7 @@ export function AddProducts() {
     await postProducts()
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
-console.log("product ", product)
+
 
   return (
     <>

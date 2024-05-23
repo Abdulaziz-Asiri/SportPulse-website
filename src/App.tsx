@@ -1,4 +1,3 @@
-// import { Home } from "lucide-react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { createContext, useEffect, useState } from "react"
 import { AddProducts } from "./pages/AddProducts"

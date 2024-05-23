@@ -21,6 +21,7 @@ import { EditIcon } from "lucide-react"
 export default function UpdateUserDialog({ user }: { user: User }) {
   const [updatedUser, setUpdatedUser] = useState(user)
   const queryClient = useQueryClient()
+  
 
   const updateUser = async () => {
     const token = localStorage.getItem("token")
@@ -38,84 +39,97 @@ export default function UpdateUserDialog({ user }: { user: User }) {
   }
 
   const handleUpdatedChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
-      setUpdatedUser({
-          ...updatedUser,
-          [name]: value
-        })
-    }
-    console.log("updated User:", updatedUser)
+    const { name, value } = e.target
+    setUpdatedUser({
+      ...updatedUser,
+      [name]: value
+    })
+  }
 
   const handleSubmitUser = async () => {
     await updateUser()
-    queryClient.invalidateQueries({ queryKey: ["user"] })
+    queryClient.invalidateQueries({ queryKey: ["users"] })
     toast({
       title: "Product Has Been Updated Successfully. ✅"
     })
-    //  toast(`Found ${searchResults.length} results for "${searchTerm}"`)
+    console.log('User is Updated:', handleSubmitUser)
   }
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <EditIcon className="mr-2 h-4 w-4" />
-          Edit
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit User Information</DialogTitle>
-          <DialogDescription>
-            Update the user info and click save to apply the changes.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
-            <Label className="text-right md:col-span-1" htmlFor="name">
-              Name
-            </Label>
-            <Input
-              className="col-span-3 md:col-span-3"
-              defaultValue={updatedUser.name}
-              name="name"
-              onChange={handleUpdatedChange}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
-            <Label className="text-right md:col-span-1" htmlFor="role">
-              Role
-            </Label>
-            <Input
-              className="col-span-3 md:col-span-3"
-              defaultValue={updatedUser.role}
-              name="role"
-              onChange={handleUpdatedChange}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
-            <Label className="text-right md:col-span-1" htmlFor="phone">
-              Phone
-            </Label>
-            <Input
-              className="col-span-3 md:col-span-3"
-              defaultValue={updatedUser.phone}
-              name="phone"
-              onChange={handleUpdatedChange}
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit" onSubmit={handleSubmitUser}>
-            Save changes
+    <>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">
+            <EditIcon className="mr-2 h-4 w-4" />
+            Edit
           </Button>
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Cancel
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <form onSubmit={handleSubmitUser}>
+            <DialogHeader>
+              <DialogTitle>Edit User Information</DialogTitle>
+              <DialogDescription>
+                Update the user info and click save to apply the changes.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+                <Label className="text-right md:col-span-1" htmlFor="name">
+                  Name
+                </Label>
+                <Input
+                  className="col-span-3 md:col-span-3"
+                  defaultValue={updatedUser.name}
+                  name="name"
+                  onChange={handleUpdatedChange}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+                <Label className="text-right md:col-span-1" htmlFor="password">
+                  Password
+                </Label>
+                <Input
+                  className="col-span-3 md:col-span-3"
+                  defaultValue={updatedUser.password}
+                  name="password"
+                  onChange={handleUpdatedChange}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+                <Label className="text-right md:col-span-1" htmlFor="email">
+                  Email
+                </Label>
+                <Input
+                  className="col-span-3 md:col-span-3"
+                  defaultValue={updatedUser.email}
+                  name="email"
+                  onChange={handleUpdatedChange}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+                <Label className="text-right md:col-span-1" htmlFor="phone">
+                  Phone
+                </Label>
+                <Input
+                  className="col-span-3 md:col-span-3"
+                  defaultValue={updatedUser.phone}
+                  name="phone"
+                  onChange={handleUpdatedChange}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">Save changes</Button>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Cancel
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 

@@ -1,27 +1,18 @@
-import { Input } from "@/components/ui/input"
+import api from "@/api"
+import { NavBarForAdmin } from "@/components/NavBarForAdmin"
+import UpdateUserDialog from "@/components/UpdateUserDialog"
 import { Button } from "@/components/ui/button"
 import {
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableCell,
+  Table,
   TableBody,
-  Table
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from "@/components/ui/table"
-import {
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenu
-} from "@/components/ui/dropdown-menu"
-import { Checkbox } from "@/components/ui/checkbox"
-import api from "@/api"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { User } from "@/types"
-import { NavBarForAdmin } from "@/components/NavBarForAdmin"
-import { ChangeEvent, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
-import UpdateUserDialog from "@/components/UpdateUserDialog"
+import { User } from "@/types"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 export default function UsersManagement() {
 
@@ -48,11 +39,9 @@ export default function UsersManagement() {
     error,
     isPending
   } = useQuery<User[]>({
-    queryKey: ["Users"],
+    queryKey: ["users"],
     queryFn: getUser
   })
-
-  console.log("AllUsers:", getUsers)
 
   const deleteUsers = async (id: string) => {
     const token = localStorage.getItem("token")
@@ -70,25 +59,18 @@ export default function UsersManagement() {
   }
   const handleDeleteUser = async (id: string) => {
     await deleteUsers(id)
-    queryClient.invalidateQueries({ queryKey: ["Users"] })
+    queryClient.invalidateQueries({ queryKey: ["users"] })
   }
-
-  
 
   return (
     <>
       <NavBarForAdmin />;
       <div className="flex flex-col gap-8 p-4 md:p-6">
-        <div className="flex w-full max-w-md items-center space-x-2">
-          <Input className="flex-1" placeholder="Search users..." type="search" />
-          <Button>Search</Button>
-        </div>
         <div className="border rounded-lg overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[32px]">
-                  <Checkbox id="select-all" />
                 </TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Role</TableHead>
@@ -102,7 +84,6 @@ export default function UsersManagement() {
                 return (
                   <TableRow key={user.id}>
                     <TableCell>
-                      <Checkbox id="select-1" />
                     </TableCell>
                     <TableCell className="font-medium">{user.name}</TableCell>
                     <TableCell className="font-medium">{user.role}</TableCell>
@@ -110,21 +91,8 @@ export default function UsersManagement() {
                     <TableCell className="font-medium">{user.phone}</TableCell>
 
                     <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button size="icon" variant="ghost">
-                            <MoveHorizontalIcon className="h-5 w-5" />
-                            <span className="sr-only">User actions</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                      <Button onClick={() => handleDeleteUser(user.id)}>Delete</Button>
                           <UpdateUserDialog user={user} />
-                          <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-                          <DropdownMenuItem className="text-red-500">
-                            <Button onClick={() => handleDeleteUser(user.id)}>Delete</Button>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                     </TableCell>
                   </TableRow>
                 )
@@ -136,101 +104,3 @@ export default function UsersManagement() {
     </>
   )
 }
-
-function MoveHorizontalIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="18 8 22 12 18 16" />
-      <polyline points="6 8 2 12 6 16" />
-      <line x1="2" x2="22" y1="12" y2="12" />
-    </svg>
-  )
-}
-
-//  ;<div className="flex flex-col gap-8 p-4 md:p-6">
-//    <div className="flex w-full max-w-md items-center space-x-2">
-//      <Input className="flex-1" placeholder="Search users..." type="search" />
-//      <Button>Search</Button>
-//    </div>
-//    <div className="border rounded-lg overflow-hidden">
-//      <Table>
-//        <TableHeader>
-//          <TableRow>
-//            <TableHead className="w-[32px]"></TableHead>
-//            <TableHead>Name</TableHead>
-//            <TableHead>Role</TableHead>
-//            <TableHead>Email</TableHead>
-//            <TableHead>Status</TableHead>
-//            <TableHead className="text-right">Actions</TableHead>
-//          </TableRow>
-//        </TableHeader>
-//        <TableBody>
-//          {getUsers?.map((user) => {
-//            return (
-//              <TableRow key={user.id}>
-//                <TableCell>
-//                  <Checkbox id="select-1" />
-//                </TableCell>
-//                <TableCell className="font-medium">{user.name}</TableCell>
-//                <TableCell>
-//                  <TableRow>
-//                    <TableCell>{user.role}</TableCell>
-//                    <TableCell className="font-medium"></TableCell>
-//                    <TableCell>{user.email}</TableCell>
-//                    <TableCell>{user.phone}</TableCell>
-//                    <TableCell className="text-right">
-//                      <DropdownMenu>
-//                        <DropdownMenuTrigger asChild>
-//                          <Button size="icon" variant="ghost">
-//                            <MoveHorizontalIcon className="h-5 w-5" />
-//                            <span className="sr-only">User actions</span>
-//                          </Button>
-//                        </DropdownMenuTrigger>
-//                        <DropdownMenuContent align="end">
-//                          <DropdownMenuItem>View</DropdownMenuItem>
-//                          <DropdownMenuItem>Edit</DropdownMenuItem>
-//                          <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-//                          <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-//                        </DropdownMenuContent>
-//                      </DropdownMenu>
-//                    </TableCell>
-//                  </TableRow>
-//                </TableCell>
-//                <TableCell>Active</TableCell>
-//                <TableCell className="text-right">
-//                  <DropdownMenu>
-//                    <DropdownMenuTrigger asChild>
-//                      <Button size="icon" variant="ghost">
-//                        <MoveHorizontalIcon className="h-5 w-5" />
-//                        <span className="sr-only">User actions</span>
-//                      </Button>
-//                    </DropdownMenuTrigger>
-//                    <DropdownMenuContent align="end">
-//                      <DropdownMenuItem>View</DropdownMenuItem>
-//                      <DropdownMenuItem>Edit</DropdownMenuItem>
-//                      <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-//                      <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-//                    </DropdownMenuContent>
-//                  </DropdownMenu>
-//                </TableCell>
-//              </TableRow>
-//            )
-//          })}
-//        </TableBody>
-//      </Table>
-//    </div>
-//    <div className="flex justify-end">
-//      <Button variant="destructive">Delete Selected</Button>
-//    </div>
-//  </div>

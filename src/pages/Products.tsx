@@ -42,7 +42,7 @@ export function Products() {
       <NavBar />
       <SearchBar />
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap  mt-24">
-        {data?.map((product) => (
+        {/* {data?.map((product) => (
           <Card key={product.id} className="w-[350px]">
             <img
               src={product.image}
@@ -63,7 +63,7 @@ export function Products() {
             </CardFooter>
           </Card>
         ))}
-        <h3> Cart ({state.cart.length}) </h3>
+        <h3> Cart ({state.cart.length}) </h3> */}
         {/* {error && <p className="text-red-500">{error.message}</p>} */}
       </section>
     </>

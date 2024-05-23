@@ -12,7 +12,7 @@ import { Cart } from "./Cart"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
 import { ROLE } from "@/types"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function NavBar() {
    const navigation = useNavigate()
