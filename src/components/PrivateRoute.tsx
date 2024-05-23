@@ -12,7 +12,6 @@ export function PrivateRoute({ children }: { children: ReactElement }) {
   
 
   console.log("decodedUser.Role:", decodedUser.Role)
-  console.log("ROLE.Customer:", ROLE.Customer)
 
   return decodedUser.role === ROLE.Customer ? <NotFoundPage /> : children
 }

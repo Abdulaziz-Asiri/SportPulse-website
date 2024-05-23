@@ -16,121 +16,124 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import api from "@/api"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { User } from "@/types"
 import { NavBarForAdmin } from "@/components/NavBarForAdmin"
+import { ChangeEvent, useState } from "react"
+import { useToast } from "@/components/ui/use-toast"
+import UpdateUserDialog from "@/components/UpdateUserDialog"
 
 export default function UsersManagement() {
 
-    const getUser = async () => {
-      try {
-        const token = localStorage.getItem("token")
-        const res = await api.get("/users", {
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return res.data
-      } catch (error) {
-        console.error(error)
-        return Promise.reject(new Error("Something went wrong, We can't get the user"))
-      }
-    }
+  const queryClient = useQueryClient()
+  const { toast } = useToast()
 
-    const {
-      data: getUsers,
-      error,
-      isPending
-    } = useQuery<User[]>({
-        queryKey: ["Users"],
-        queryFn: getUser
-    })
-    
-    console.log('AllUsers:', getUsers)
+  const getUser = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      const res = await api.get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong, We can't get the user"))
+    }
+  }
+
+  const {
+    data: getUsers,
+    error,
+    isPending
+  } = useQuery<User[]>({
+    queryKey: ["Users"],
+    queryFn: getUser
+  })
+
+  console.log("AllUsers:", getUsers)
+
+  const deleteUsers = async (id: string) => {
+    const token = localStorage.getItem("token")
+    try {
+      const res = await api.delete(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}` // Send token with request to check permissions
+        }
+      })
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong !! User you want to delete not found"))
+    }
+  }
+  const handleDeleteUser = async (id: string) => {
+    await deleteUsers(id)
+    queryClient.invalidateQueries({ queryKey: ["Users"] })
+  }
+
+  
 
   return (
     <>
-    <NavBarForAdmin/>
-    <div className="flex flex-col gap-8 p-4 md:p-6">
-      <div className="flex w-full max-w-md items-center space-x-2">
-        <Input className="flex-1" placeholder="Search users..." type="search" />
-        <Button>Search</Button>
+      <NavBarForAdmin />;
+      <div className="flex flex-col gap-8 p-4 md:p-6">
+        <div className="flex w-full max-w-md items-center space-x-2">
+          <Input className="flex-1" placeholder="Search users..." type="search" />
+          <Button>Search</Button>
+        </div>
+        <div className="border rounded-lg overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[32px]">
+                  <Checkbox id="select-all" />
+                </TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Phone</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {getUsers?.map((user) => {
+                return (
+                  <TableRow key={user.id}>
+                    <TableCell>
+                      <Checkbox id="select-1" />
+                    </TableCell>
+                    <TableCell className="font-medium">{user.name}</TableCell>
+                    <TableCell className="font-medium">{user.role}</TableCell>
+                    <TableCell className="font-medium">{user.email}</TableCell>
+                    <TableCell className="font-medium">{user.phone}</TableCell>
+
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button size="icon" variant="ghost">
+                            <MoveHorizontalIcon className="h-5 w-5" />
+                            <span className="sr-only">User actions</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <UpdateUserDialog user={user} />
+                          <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
+                          <DropdownMenuItem className="text-red-500">
+                            <Button onClick={() => handleDeleteUser(user.id)}>Delete</Button>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
-      <div className="border rounded-lg overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[32px]">
-              </TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            { getUsers?.map((user) =>{
-              return (
-                <TableRow key={user.id}>
-                  <TableCell>
-                    <Checkbox id="select-1" />
-                  </TableCell>
-                  <TableCell className="font-medium">{user.name}</TableCell>
-                  <TableCell>
-                    <TableRow>
-                      <TableCell>
-                        <Checkbox id="select-1" />
-                      </TableCell>
-                      <TableCell className="font-medium">John Doe</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.role}</TableCell>
-                      <TableCell>{user.phone}</TableCell>
-                      <TableCell className="text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button size="icon" variant="ghost">
-                              <MoveHorizontalIcon className="h-5 w-5" />
-                              <span className="sr-only">User actions</span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem>View</DropdownMenuItem>
-                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  </TableCell>
-                  <TableCell>Active</TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button size="icon" variant="ghost">
-                          <MoveHorizontalIcon className="h-5 w-5" />
-                          <span className="sr-only">User actions</span>
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View</DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex justify-end">
-        <Button variant="destructive">Delete Selected</Button>
-      </div>
-    </div>
-</>
+    </>
   )
 }
 
@@ -154,3 +157,80 @@ function MoveHorizontalIcon(props) {
     </svg>
   )
 }
+
+//  ;<div className="flex flex-col gap-8 p-4 md:p-6">
+//    <div className="flex w-full max-w-md items-center space-x-2">
+//      <Input className="flex-1" placeholder="Search users..." type="search" />
+//      <Button>Search</Button>
+//    </div>
+//    <div className="border rounded-lg overflow-hidden">
+//      <Table>
+//        <TableHeader>
+//          <TableRow>
+//            <TableHead className="w-[32px]"></TableHead>
+//            <TableHead>Name</TableHead>
+//            <TableHead>Role</TableHead>
+//            <TableHead>Email</TableHead>
+//            <TableHead>Status</TableHead>
+//            <TableHead className="text-right">Actions</TableHead>
+//          </TableRow>
+//        </TableHeader>
+//        <TableBody>
+//          {getUsers?.map((user) => {
+//            return (
+//              <TableRow key={user.id}>
+//                <TableCell>
+//                  <Checkbox id="select-1" />
+//                </TableCell>
+//                <TableCell className="font-medium">{user.name}</TableCell>
+//                <TableCell>
+//                  <TableRow>
+//                    <TableCell>{user.role}</TableCell>
+//                    <TableCell className="font-medium"></TableCell>
+//                    <TableCell>{user.email}</TableCell>
+//                    <TableCell>{user.phone}</TableCell>
+//                    <TableCell className="text-right">
+//                      <DropdownMenu>
+//                        <DropdownMenuTrigger asChild>
+//                          <Button size="icon" variant="ghost">
+//                            <MoveHorizontalIcon className="h-5 w-5" />
+//                            <span className="sr-only">User actions</span>
+//                          </Button>
+//                        </DropdownMenuTrigger>
+//                        <DropdownMenuContent align="end">
+//                          <DropdownMenuItem>View</DropdownMenuItem>
+//                          <DropdownMenuItem>Edit</DropdownMenuItem>
+//                          <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
+//                          <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
+//                        </DropdownMenuContent>
+//                      </DropdownMenu>
+//                    </TableCell>
+//                  </TableRow>
+//                </TableCell>
+//                <TableCell>Active</TableCell>
+//                <TableCell className="text-right">
+//                  <DropdownMenu>
+//                    <DropdownMenuTrigger asChild>
+//                      <Button size="icon" variant="ghost">
+//                        <MoveHorizontalIcon className="h-5 w-5" />
+//                        <span className="sr-only">User actions</span>
+//                      </Button>
+//                    </DropdownMenuTrigger>
+//                    <DropdownMenuContent align="end">
+//                      <DropdownMenuItem>View</DropdownMenuItem>
+//                      <DropdownMenuItem>Edit</DropdownMenuItem>
+//                      <DropdownMenuItem className="text-red-500">Block</DropdownMenuItem>
+//                      <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
+//                    </DropdownMenuContent>
+//                  </DropdownMenu>
+//                </TableCell>
+//              </TableRow>
+//            )
+//          })}
+//        </TableBody>
+//      </Table>
+//    </div>
+//    <div className="flex justify-end">
+//      <Button variant="destructive">Delete Selected</Button>
+//    </div>
+//  </div>

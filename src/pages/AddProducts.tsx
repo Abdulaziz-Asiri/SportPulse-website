@@ -91,13 +91,13 @@ export function AddProducts() {
     try {
       const res = await api.delete(`/products/${id}`, {
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}` // Send token with request to check permissions
             }
         })
       return res.data
     } catch (error) {
       console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
+      return Promise.reject(new Error("Something went wrong !! User you want to delete not found"))
     }
   }
   const handleDeleteProduct = async (id: string) => {

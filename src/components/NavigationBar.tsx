@@ -56,6 +56,7 @@ export default function NavBar() {
           >
             About
           </a>
+          {!state.user && (
           <div className="flex items-center gap-2">
             <Button
               className="hidden md:inline-flex"
@@ -65,11 +66,11 @@ export default function NavBar() {
             >
               Log In
             </Button>
-
             <Button size="sm" onClick={handleSignUPClick}>
               Sign Up
             </Button>
           </div>
+          )}
         </div>
         <Cart /> {/*Cart component */}
         <DropdownMenu>
