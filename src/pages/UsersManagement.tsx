@@ -1,6 +1,7 @@
 import api from "@/api"
 import { NavBarForAdmin } from "@/components/NavBarForAdmin"
 import UpdateUserDialog from "@/components/UpdateUserDialog"
+import UpdateUserRole from "@/components/UpdateUserRole"
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -17,7 +18,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 export default function UsersManagement() {
 
   const queryClient = useQueryClient()
-  const { toast } = useToast()
 
   const getUser = async () => {
     try {
@@ -66,12 +66,12 @@ export default function UsersManagement() {
     <>
       <NavBarForAdmin />;
       <div className="flex flex-col gap-8 p-4 md:p-6">
+        <h1 className="text-3xl font-bold mb-6">Users Management</h1>
         <div className="border rounded-lg overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[32px]">
-                </TableHead>
+                <TableHead className="w-[32px]"></TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Email</TableHead>
@@ -83,16 +83,18 @@ export default function UsersManagement() {
               {getUsers?.map((user) => {
                 return (
                   <TableRow key={user.id}>
-                    <TableCell>
-                    </TableCell>
+                    <TableCell></TableCell>
                     <TableCell className="font-medium">{user.name}</TableCell>
                     <TableCell className="font-medium">{user.role}</TableCell>
                     <TableCell className="font-medium">{user.email}</TableCell>
                     <TableCell className="font-medium">{user.phone}</TableCell>
 
                     <TableCell className="text-right">
-                      <Button onClick={() => handleDeleteUser(user.id)}>Delete</Button>
-                          <UpdateUserDialog user={user} />
+                      <Button variant="destructive" onClick={() => handleDeleteUser(user.id)}>
+                        Delete
+                      </Button>
+                      <UpdateUserDialog user={user} />
+                      <UpdateUserRole user={user} />
                     </TableCell>
                   </TableRow>
                 )

@@ -5,21 +5,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
-  Activity,
-  ArrowUpRight,
   CircleUser,
-  CreditCard,
-  DollarSign,
-  Link,
   Menu,
-  Package2,
-  Search,
-  Users
-} from "lucide-react"
+  Package2
+} from "lucide-react";
 import { Button } from "./ui/button";
 export function NavBarForAdmin() {
     return (
@@ -39,19 +31,25 @@ export function NavBarForAdmin() {
             Orders
           </a>
           <a
-            href="/Addproducts"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Add Products
-          </a>
-          <a
             href="/usersmanagment"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Customers
+            Users Management
+          </a>
+          <a
+            href="/Addproducts"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Products Management
+          </a>
+          <a
+            href="/addcategories"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Category Management
           </a>
           <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-            Analytics
+            Inventory
           </a>
         </nav>
         <Sheet>

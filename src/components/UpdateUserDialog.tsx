@@ -46,7 +46,8 @@ export default function UpdateUserDialog({ user }: { user: User }) {
     })
   }
 
-  const handleSubmitUser = async () => {
+  const handleSubmitUser = async (e) => {
+    e.preventDefault()
     await updateUser()
     queryClient.invalidateQueries({ queryKey: ["users"] })
     toast({
@@ -119,8 +120,8 @@ export default function UpdateUserDialog({ user }: { user: User }) {
               </div>
             </div>
             <DialogFooter>
+              <DialogClose >
               <Button type="submit">Save changes</Button>
-              <DialogClose asChild>
                 <Button type="button" variant="secondary">
                   Cancel
                 </Button>

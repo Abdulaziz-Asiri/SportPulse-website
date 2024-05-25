@@ -12,6 +12,7 @@ import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
 import UsersManagement from "./pages/UsersManagement"
 import { PrivateRoute } from "./components/PrivateRoute"
+import AddCategories from "./pages/AddCategories"
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <UsersManagement />
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/addcategories",
+    element: (
+      <PrivateRoute>
+        <AddCategories />
       </PrivateRoute>
     )
   }
