@@ -127,7 +127,6 @@ function App() {
       user
     })
   }
-  
 
   return (
     <>

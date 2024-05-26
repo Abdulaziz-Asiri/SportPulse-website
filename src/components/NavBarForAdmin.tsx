@@ -13,7 +13,23 @@ import {
   Package2
 } from "lucide-react";
 import { Button } from "./ui/button";
+import { useContext } from "react";
+import { GlobalContext } from "@/App";
+import { useNavigate } from "react-router-dom";
 export function NavBarForAdmin() {
+  const navigation = useNavigate()
+
+   const context = useContext(GlobalContext)
+   if (!context) throw Error("Context is not available")
+
+   const { handleRemoveUser } = context
+   
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    handleRemoveUser()
+    navigation("/")
+  }
     return (
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <nav className="hidden flex-col gap- text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -100,7 +116,7 @@ export function NavBarForAdmin() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
