@@ -198,40 +198,39 @@ export function AddProducts() {
 
       <SearchBar />
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
-        {
-          getProductData?.map((product) => {
-            return (
-              <div key={product.id}>
-                <Card className="w-[350px]">
-                  <img
-                    src={product.image}
-                    alt="Product Image"
-                    className="aspect-square object-contain rounded-t-lg"
-                  />
-                  <CardContent className="p-4">
-                    <CardTitle>{product.name}</CardTitle>
-                    <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <UpdateProductDailog product={product} />
-                    <Button
-                      variant="destructive"
-                      className="w-full"
-                      onClick={() => {
-                        handleDeleteProduct(product.id)
-                        toast({
-                          variant: "destructive",
-                          title: "Product Has Been Deleted Successfully."
-                        })
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            )
-          })}
+        {getProductData?.map((product) => {
+          return (
+            <div key={product.id}>
+              <Card className="w-[350px]">
+                <img
+                  src={product.image}
+                  alt="Product Image"
+                  className="aspect-square object-contain rounded-t-lg"
+                />
+                <CardContent className="p-4">
+                  <CardTitle>{product.name}</CardTitle>
+                  <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
+                </CardContent>
+                <CardFooter>
+                  <UpdateProductDailog product={product} />
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => {
+                      handleDeleteProduct(product.id)
+                      toast({
+                        variant: "destructive",
+                        title: "Product Has Been Deleted Successfully."
+                      })
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          )
+        })}
       </section>
     </>
   )

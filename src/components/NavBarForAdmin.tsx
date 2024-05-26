@@ -31,24 +31,27 @@ export function NavBarForAdmin() {
             Orders
           </a>
           <a
-            href="/usersmanagment"
+            href="/users_managment"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Users Management
           </a>
           <a
-            href="/Addproducts"
+            href="/Add_products"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Products Management
           </a>
           <a
-            href="/addcategories"
+            href="/add_categories"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Category Management
           </a>
-          <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+          <a
+            href="inventory_managment"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
             Inventory
           </a>
         </nav>

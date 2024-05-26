@@ -3,12 +3,35 @@ import { Button } from "./ui/button";
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { useContext } from "react";
 import { GlobalContext } from "@/App";
+import { Product } from "@/types";
+
+type OrderItem = {
+  quantity: number
+  productId: string
+}
+type OrderCheckout = {
+  addressId: string
+  items: OrderItem[]
+}
 
 export function Cart() {
     const context = useContext(GlobalContext)
     if (!context) throw Error("Context is not available")
-    const { state, handleDeleteFromCart } = context
+    const { state, handleDeleteFromCart, handleAddToCart } = context
 
+    const groups = state.cart.reduce((acc, obj) => {
+      const key = obj.id
+      const curGroup = acc[key] ?? []
+      return { ...acc, [key]: [...curGroup, obj] }
+    }, {} as { [productId: string]: Product[] })
+    console.log('groups:', groups)
+
+    const subTotal = state.cart.reduce((acc, curr) => {
+      return acc + curr.price
+    }, 0)
+    const keys = Object.entries(groups)
+    const total = subTotal + 5
+    console.log('keys:', keys)
     return (
       <Drawer>
         <DrawerTrigger asChild>
@@ -25,7 +48,15 @@ export function Cart() {
             </DrawerDescription>
           </DrawerHeader>
           <div className="grid gap-4 py-4">
-            {state.cart.map((product) => {
+            {state.cart.length === 0 && <p> No items</p>}
+            {Object.keys(groups).map((key) => {
+              const products = groups[key]
+              const product = products[0]
+              const subTotal = products.reduce((acc, curr) => {
+                return acc + curr.price
+              }, 0)
+              const total = subTotal + 5
+
               return (
                 <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4" key={product.id}>
                   <img
@@ -44,26 +75,33 @@ export function Cart() {
                     <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button size="icon" variant="outline">
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      onClick={() => handleDeleteFromCart(product.id)}
+                    >
                       <MinusIcon className="h-4 w-4" />
                     </Button>
-                    <span>1</span>
-                    <Button size="icon" variant="outline">
+                    <span>({products.length})</span>
+                    <Button size="icon" variant="outline" onClick={() => handleAddToCart(product)}>
                       <PlusIcon className="h-4 w-4" />
                     </Button>
                     <Button size="icon" variant="destructive">
-                      <TrashIcon className="h-4 w-4" onClick={() => handleDeleteFromCart(product.id)} />
+                      <TrashIcon
+                        className="h-4 w-4"
+                        onClick={() => handleDeleteFromCart(product.id)}
+                      />
                     </Button>
                   </div>
                 </div>
               )
             })}
           </div>
-          <DrawerFooter >
+          <DrawerFooter>
             <div className="grid gap-2">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="font-medium">SR 9.98</span>
+                <span className="font-medium">SR{subTotal}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
@@ -71,18 +109,18 @@ export function Cart() {
               </div>
               <div className="flex justify-between">
                 <span>Total</span>
-                <span className="font-medium">SR 84.98</span>
+                <span className="font-medium">SR{total}</span>
               </div>
             </div>
             <div className="flex gap-2 mt-4">
-              <a href ="/">
+              <a href="/">
                 {" "}
-                <Button variant="outline" >Continue Shopping</Button>
+                <Button variant="outline">Continue Shopping</Button>
               </a>{" "}
-              
               <Button>Proceed to Checkout</Button>
             </div>
           </DrawerFooter>
+          
         </DrawerContent>
       </Drawer>
     )

@@ -13,6 +13,7 @@ import { Toaster } from "./components/ui/toaster"
 import UsersManagement from "./pages/UsersManagement"
 import { PrivateRoute } from "./components/PrivateRoute"
 import AddCategories from "./pages/AddCategories"
+import InventoryManagment from "./pages/InventoryManagement"
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: "/addproducts",
+    path: "/add_products",
     element: (
       <PrivateRoute>
         <AddProducts />
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
     element: <Testpage />
   },
   {
-    path: "/usersmanagment",
+    path: "/users_managment",
     element: (
       <PrivateRoute>
         <UsersManagement />
@@ -61,10 +62,18 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: "/addcategories",
+    path: "/add_categories",
     element: (
       <PrivateRoute>
         <AddCategories />
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/inventory_managment",
+    element: (
+      <PrivateRoute>
+        <InventoryManagment />
       </PrivateRoute>
     )
   }
@@ -88,6 +97,7 @@ function App() {
     cart: [],
     user: null
   })
+  console.log('cart product:', state)
 
   useEffect(() => {
     const user = localStorage.getItem("user")
@@ -101,18 +111,23 @@ function App() {
   }, [])
 
   const handleAddToCart = (product: Product) => {
-    const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
-    if (isDuplicated) return
+    // const isDuplicated = state.cart.find((cartItem) => cartItem.id === product.id)
+    // if (isDuplicated) return
     setState({
       ...state,
       cart: [...state.cart, product]
     })
   }
   const handleDeleteFromCart = (id: string) => {
-    const DeleteItem = state.cart.filter((item) => item.id !== id)
+    // const DeleteItem = state.cart.filter((item) => item.id !== id)
+    const cart =state.cart 
+
+    const index = state.cart.findIndex((item) => item.id === id)
+    cart.splice(index, 1)
+    
     setState({
       ...state,
-      cart: DeleteItem
+      cart: cart
     })
   }
   const handleRemoveUser = () => {

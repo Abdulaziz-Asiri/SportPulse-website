@@ -35,5 +35,12 @@ export type DecodedUser = {
   name: string
   role: keyof typeof ROLE
 }
+export type Inventory = {
+  id: string
+  productId: string
+  quantity: number
+  flavor: string
+  wight: string
+}
 
 
