@@ -1,7 +1,7 @@
 import api from "@/api"
 import NavBar from "@/components/NavigationBar"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-
+import { buttonVariants } from "@/components/ui/button"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card, CardTitle, CardFooter } from "@/components/ui/card"
 import { Product } from "@/types"
@@ -10,6 +10,9 @@ import { useContext } from "react"
 import { GlobalContext } from "@/App"
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
+import { Link } from "react-router-dom"
+import ErrorPage from "@/components/ErrorPage"
+import LoadingPage from "@/components/LoadingPage"
 
 export default function Home() {
   
@@ -39,28 +42,54 @@ export default function Home() {
     queryFn: getProducts // Query function
   })
 
-  if (isPending) return "Loading..."
-  if (error) return "An error has occurred: " + error.message
+  
+  if (isPending) {
+    return (
+      <div>
+        <LoadingPage />
+      </div>
+    )
+  }
 
+  if (error) {
+    return (
+      <div>
+        <ErrorPage />
+      </div>
+    )
+  }
+
+// const handleProductClick = (product: Product) => {
+//   // Navigate to the product details page and pass the product data as a parameter
+//   router.push({
+//     pathname: "/product_details",
+//     query: {
+//       id: product.id,
+//       name: product.name,
+//       image: product.image,
+//       price: product.price
+//     }
+//   })
+// }
   return (
     <>
       <NavBar />
 
       <section className="w-full relative">
         <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
-        <video
-          className="absolute inset-0 z-[-1] h-full w-full object-cover"
-          height={1500}
-          style={{
-            aspectRatio: "1920/1080",
-            objectFit: "cover"
-          }}
-          width={1920}
-          src={videoH}
-          autoPlay
-          loop
-          muted
-        />
+          <video
+            className="absolute inset-0 z-[-1] h-full w-full object-cover"
+            height={1500}
+            style={{
+              aspectRatio: "1920/1080",
+              objectFit: "cover"
+            }}
+            width={1920}
+            src={videoH}
+            autoPlay
+            loop
+            muted
+          />
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
               Fuel Your Body with Premium Nutrition Supplements
@@ -105,11 +134,13 @@ export default function Home() {
                   <Button className="w-full" onClick={() => handleAddToCart(product)}>
                     Add to cart
                   </Button>
+                  <Button variant="outline" asChild>
+                    <Link to={`/products/${product.id}`}>Details</Link>
+                  </Button>
                 </CardFooter>
               </Card>
             ))}
           </section>
-          {/* {error && <p className="text-red-500">{error.message}</p>} */}
         </div>
       </section>
       <section className="w-full py-12 md:py-24 lg:py-32">

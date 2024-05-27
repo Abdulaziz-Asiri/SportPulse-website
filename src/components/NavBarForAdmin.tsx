@@ -7,19 +7,31 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  CircleUser,
-  Menu,
-  Package2
-} from "lucide-react";
+import { CircleUser, Menu, Dumbbell } from "lucide-react"
 import { Button } from "./ui/button";
+import { useContext } from "react";
+import { GlobalContext } from "@/App";
+import { useNavigate } from "react-router-dom";
 export function NavBarForAdmin() {
+  const navigation = useNavigate()
+
+   const context = useContext(GlobalContext)
+   if (!context) throw Error("Context is not available")
+
+   const { handleRemoveUser } = context
+   
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    handleRemoveUser()
+    navigation("/")
+  }
+  
     return (
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <nav className="hidden flex-col gap- text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-          <a href="#" className="flex items-center gap-2 text-lg font-semibold md:text-base">
-            <Package2 className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
+          <a href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+            <Dumbbell className="h-12 w-12" />
           </a>
           <a href="/" className="text-foreground transition-colors hover:text-foreground">
             Home
@@ -49,7 +61,7 @@ export function NavBarForAdmin() {
             Category Management
           </a>
           <a
-            href="inventory_managment"
+            href="/inventory_managment"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Inventory
@@ -64,9 +76,8 @@ export function NavBarForAdmin() {
           </SheetTrigger>
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
-              <a href="#" className="flex items-center gap-2 text-lg font-semibold">
-                <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
+              <a href="/" className="flex items-center gap-2 text-lg font-semibold">
+                <Dumbbell className="h-12 w-12" />
               </a>
               <a href="/Dashboard" className="hover:text-foreground">
                 Dashboard
@@ -75,13 +86,19 @@ export function NavBarForAdmin() {
                 Orders
               </a>
               <a href="/AddProducts" className="text-muted-foreground hover:text-foreground">
-                Add Products
+                Products Management
               </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground">
-                Customers
+              <a href="/usersmanagment" className="text-muted-foreground hover:text-foreground">
+                Users Management
               </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground">
-                Analytics
+              <a href="/addcategories" className="text-muted-foreground hover:text-foreground">
+                Category Management
+              </a>
+              <a
+                href="/inventory_managment"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Inventory
               </a>
             </nav>
           </SheetContent>
@@ -103,7 +120,7 @@ export function NavBarForAdmin() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

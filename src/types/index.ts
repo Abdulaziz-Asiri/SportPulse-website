@@ -13,6 +13,16 @@ export type Category = {
   
 }
 
+export type TypeInventory ={
+    
+    productId: string,
+    quantity: number,
+    flavor: string,
+    wight: string
+  
+
+}
+
 export type  User = {
   id: string
   name: string

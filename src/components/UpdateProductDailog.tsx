@@ -167,7 +167,6 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
               name="description"
               className="col-span-3 min-h-[120px]"
               defaultValue={updatedProduct.description}
-              
               onChange={handleUpdatedChange}
             />
           </div>

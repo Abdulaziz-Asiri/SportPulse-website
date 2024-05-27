@@ -20,12 +20,12 @@ export default function NavBar() {
   if (!context) throw Error("Context is not available")
 
   const { state, handleRemoveUser } = context
-   console.log("state:", state)
 
   const handleLogout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     handleRemoveUser()
+    navigation("/")
   }
   const handleLoginClick = () => {
     navigation("/login")

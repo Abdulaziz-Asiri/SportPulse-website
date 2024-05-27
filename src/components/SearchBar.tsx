@@ -72,6 +72,7 @@ export default function SearchBar() {
             Search
           </Button>
         </form>
+      </div>
         <div>
     <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
 
@@ -92,8 +93,7 @@ export default function SearchBar() {
             </Card>
           ))}
           </section>
-        </div>
-      </div>
+          </div>
     </>
   )
 }

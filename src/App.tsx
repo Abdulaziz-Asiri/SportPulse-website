@@ -7,13 +7,15 @@ import { Login } from "./pages/LogIn"
 import NotFoundPage from "./pages/NotFoundPage"
 import { Products } from "./pages/Products"
 import { SingUp } from "./pages/SingUp"
-import { DecodedUser, Product } from "./types"
+import { DecodedUser, Product, TypeInventory } from "./types"
 import Testpage from "./pages/Testpage"
 import { Toaster } from "./components/ui/toaster"
 import UsersManagement from "./pages/UsersManagement"
 import { PrivateRoute } from "./components/PrivateRoute"
 import AddCategories from "./pages/AddCategories"
 import InventoryManagment from "./pages/InventoryManagement"
+import ProductDetails from "./pages/ProductDetails"
+import Checkout from "./pages/CheckoutPage"
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,14 @@ const router = createBrowserRouter([
         <InventoryManagment />
       </PrivateRoute>
     )
+  },
+  {
+    path: "/products/:productId",
+    element: <ProductDetails />
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />
   }
 ])
 
@@ -142,7 +152,6 @@ function App() {
       user
     })
   }
-  
 
   return (
     <>
