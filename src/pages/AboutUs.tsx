@@ -16,13 +16,15 @@ export default function AboutUs() {
               Elevate your style with our eco-friendly apparel, crafted with premium natural
               materials and ethical practices.
             </p>
+            <Link to="/products">
             <Button size="lg">Shop the Collection</Button>
+            </Link>
           </div>
           <img
             alt="Hero Product"
             className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
             height="550"
-            src="placeholder.svg"
+            src="/src/assets/Hero.JPG"
             width="550"
           />
         </div>

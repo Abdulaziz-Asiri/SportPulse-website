@@ -12,7 +12,7 @@ import { Cart } from "./Cart"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
 import { ROLE } from "@/types"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function NavBar() {
    const navigation = useNavigate()
@@ -36,23 +36,23 @@ export default function NavBar() {
 
   return (
     <header className=" fixed top-0 left-0 right-0 z-50 flex h-20 w-full shrink-0 items-center px-4 md:px-6 border-b bg-white dark:bg-gray-950">
-      <a className="flex items-center justify-center" href="/">
+      <Link className="flex items-center justify-center" to="/">
         <Dumbbell className="h-12 w-12" />
-      </a>
+      </Link>
       <nav className=" ml-auto hidden gap-4 sm:gap-6 lg:flex">
         <div className="sm:gap-10 flex  items-center   ">
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="/">
+          <Link className="text-sm font-medium hover:underline underline-offset-4" to="/">
             Home
-          </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="/products">
+          </Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4" to="/products">
             Products
-          </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="/contactUs">
+          </Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4" to="/contactUs">
             Contact Us
-          </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="/aboutUs">
+          </Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4" to="/aboutUs">
             About
-          </a>
+          </Link>
           {!state.user && (
             <div className="flex items-center gap-2">
               <Button
@@ -82,16 +82,16 @@ export default function NavBar() {
             <DropdownMenuSeparator />
             {state.user?.role === ROLE.Admin && ( // Protect component from customers
               <DropdownMenuItem>
-                <a href="/dashboard">Dashboard</a>
+                <Link to="/dashboard">Dashboard</Link>
               </DropdownMenuItem>
             )}
 
             <DropdownMenuItem>
-              <a href="/contactUs">Settings</a>
+              <Link to="/contactUs">Settings</Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem>
-              <a href="/contactUs">Support</a>
+              <Link to="/contactUs">Support</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             {state.user && (

@@ -4,8 +4,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import NavBar from "@/components/NavigationBar"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function ContactUs() {
+  const {toast} = useToast()
   return (
     <>
       <NavBar />
@@ -30,7 +32,14 @@ export default function ContactUs() {
                 <Label htmlFor="message">Message</Label>
                 <Textarea className="min-h-[120px]" id="message" placeholder="Enter your message" />
               </div>
-              <Button className="w-full" type="submit">
+              <Button
+                className="w-full"
+                type="submit"
+                onClick={() => toast({
+                  variant: "success",
+                  title: "Message submit Successfully.✅"
+                })}
+              >
                 Submit
               </Button>
             </form>

@@ -30,42 +30,39 @@ export function NavBarForAdmin() {
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap- text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <a href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+        <Link to="/" className="flex items-center gap-2 text-lg font-semibold md:text-base">
           <Dumbbell className="h-12 w-12" />
-        </a>
-        <a href="/" className="text-foreground transition-colors hover:text-foreground">
+        </Link>
+        <Link to="/" className="text-foreground transition-colors hover:text-foreground">
           Home
-        </a>
-        <a href="/Dashboard" className="text-foreground transition-colors hover:text-foreground">
+        </Link>
+        <Link to="/Dashboard" className="text-foreground transition-colors hover:text-foreground">
           Dashboard
-        </a>
-        <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-          Orders
-        </a>
-        <a
-          href="/users_managment"
+        </Link>
+        <Link
+          to="/users_managment"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
           Users Management
-        </a>
-        <a
-          href="/Add_products"
+        </Link>
+        <Link
+          to="/Add_products"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
           Products Management
-        </a>
-        <a
-          href="/add_categories"
+        </Link>
+        <Link
+          to="/add_categories"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
           Category Management
-        </a>
-        <a
-          href="/inventory_managment"
+        </Link>
+        <Link
+          to="/inventory_managment"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
           Inventory
-        </a>
+        </Link>
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -76,27 +73,27 @@ export function NavBarForAdmin() {
         </SheetTrigger>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
-            <a href="/" className="flex items-center gap-2 text-lg font-semibold">
+            <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
               <Dumbbell className="h-12 w-12" />
-            </a>
-            <a href="/Dashboard" className="hover:text-foreground">
+            </Link>
+            <Link to="/Dashboard" className="hover:text-foreground">
               Dashboard
-            </a>
-            <a href="/products" className="text-muted-foreground hover:text-foreground">
+            </Link>
+            <Link to="/products" className="text-muted-foreground hover:text-foreground">
               Products
-            </a>
-            <a href="/add_products" className="text-muted-foreground hover:text-foreground">
+            </Link>
+            <Link to="/add_products" className="text-muted-foreground hover:text-foreground">
               Products Management
-            </a>
-            <a href="/users_managment" className="text-muted-foreground hover:text-foreground">
+            </Link>
+            <Link to="/users_managment" className="text-muted-foreground hover:text-foreground">
               Users Management
-            </a>
-            <a href="/add_categories" className="text-muted-foreground hover:text-foreground">
+            </Link>
+            <Link to="/add_categories" className="text-muted-foreground hover:text-foreground">
               Category Management
-            </a>
-            <a href="/inventory_managment" className="text-muted-foreground hover:text-foreground">
+            </Link>
+            <Link to="/inventory_managment" className="text-muted-foreground hover:text-foreground">
               Inventory
-            </a>
+            </Link>
           </nav>
         </SheetContent>
       </Sheet>
@@ -112,14 +109,14 @@ export function NavBarForAdmin() {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <a href="/dashboard">Dashboard</a>
+              <Link to="/dashboard">Dashboard</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <a href="/contactUs">Settings</a>
+              <Link to="/contactUs">Settings</Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem>
-              <a href="/contactUs">Support</a>
+              <Link to="/contactUs">Support</Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />

@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/6JDd9qWmC0G
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Label } from "@/components/ui/label"
@@ -16,65 +11,104 @@ import {
 } from "@/components/ui/select"
 import NavBar from "@/components/NavigationBar"
 import { Product } from "@/types"
+import { GlobalContext } from "@/App"
+import { useContext, useState } from "react"
 
 export default function Checkout({ cart }: { cart: Product }) {
-  // const context = useContext(GlobalContext)
-  // if (!context) throw Error("Context is not available")
-  // const { state, handleDeleteFromCart, handleAddToCart } = context
+
+  const context = useContext(GlobalContext)
+  if (!context) throw Error("Context is not available")
+  const { state, handleDeleteFromCart, handleAddToCart } = context
+  console.log('state:', state)
+ 
+  const groups = state.cart.reduce((acc, obj) => {
+    const key = obj.id
+    const curGroup = acc[key] ?? []
+    return { ...acc, [key]: [...curGroup, obj] }
+  }, {} as { [productId: string]: Product[] })
+
+  const subTotal = state.cart.reduce((acc, curr) => {
+    return acc + curr.price
+  }, 0)
+
+  const keys = Object.entries(groups)
+  const total = subTotal + 5
+
   return (
     <>
       <NavBar />
-      <div className="bg-gray-100 dark:bg-gray-800 py-48">
+      <div className="bg-gray-100 dark:bg-gray-800 py-36">
         <div className="max-w-6xl mx-auto px-4 md:px-0">
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-2xl font-bold mb-4">Cart</h2>
               <div className="grid gap-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <img
-                      alt="Leather Backpack"
-                      className="rounded-lg"
-                      height={80}
-                      src="/placeholder.svg"
-                      style={{
-                        aspectRatio: "80/80",
-                        objectFit: "cover"
-                      }}
-                      width={80}
-                    />
-                    <div>
-                      <h3 className="font-medium">$</h3>
-                      <p className="text-gray-500">$199</p>
+                {state.cart.length === 0 && <p> No items</p>}
+                {Object.keys(groups).map((key) => {
+                  const products = groups[key]
+                  const product = products[0]
+                  const subTotal = products.reduce((acc, curr) => {
+                    return acc + curr.price
+                  }, 0)
+                  return (
+                    <div className="flex items-center justify-between" key={product.id}>
+                      <div className="flex items-center gap-4">
+                        <img
+                          alt="Leather Backpack"
+                          className="rounded-lg"
+                          height={80}
+                          src={product.image}
+                          style={{
+                            aspectRatio: "80/80",
+                            objectFit: "contain"
+                          }}
+                          width={80}
+                        />
+                        <div>
+                          <h3 className="font-medium">{product.name}</h3>
+                          <p className="text-gray-500">${product.price}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleDeleteFromCart(product.id)}
+                        >
+                          <MinusIcon className="h-4 w-4" />
+                        </Button>
+                        <span>
+                          <span>{products.length}</span>
+                        </span>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          <PlusIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button size="icon" variant="ghost">
-                      <MinusIcon className="h-4 w-4" />
-                    </Button>
-                    <span>1</span>
-                    <Button size="icon" variant="ghost">
-                      <PlusIcon className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
+                  )
+                })}
+
                 <Separator />
                 <div className="flex items-center justify-between">
                   <span>Subtotal</span>
-                  <span className="font-medium">$199</span>
+                  <span className="font-medium">SR{subTotal}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Shipping</span>
-                  <span className="font-medium">$10</span>
+                  <span className="font-medium">SR 5</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Tax</span>
-                  <span className="font-medium">$15</span>
+                  <span className="font-medium">% 15</span>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
                   <span className="font-bold">Total</span>
-                  <span className="font-bold">$224</span>
+                  <span className="font-bold">SR {total}</span>
                 </div>
               </div>
             </div>

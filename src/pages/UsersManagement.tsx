@@ -2,6 +2,7 @@ import api from "@/api"
 import { NavBarForAdmin } from "@/components/NavBarForAdmin"
 import UpdateUserDialog from "@/components/UpdateUserDialog"
 import UpdateUserRole from "@/components/UpdateUserRole"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -16,7 +17,7 @@ import { User } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 export default function UsersManagement() {
-
+const { toast } = useToast()
   const queryClient = useQueryClient()
 
   const getUser = async () => {
@@ -90,9 +91,35 @@ export default function UsersManagement() {
                     <TableCell className="font-medium">{user.phone}</TableCell>
 
                     <TableCell className="text-right">
-                      <Button variant="destructive" onClick={() => handleDeleteUser(user.id)}>
-                        Delete
-                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="destructive">Delete Category</Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Category</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete this category? This action cannot be
+                              undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogAction
+                              variant="destructive"
+                              onClick={() => {
+                                handleDeleteUser(user.id)
+                                toast({
+                                  variant: "success",
+                                  title: "Product Has Been Deleted Successfully.✅"
+                                })
+                              }}
+                            >
+                              Delete
+                            </AlertDialogAction>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                       <UpdateUserDialog user={user} />
                       <UpdateUserRole user={user} />
                     </TableCell>

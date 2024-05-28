@@ -11,7 +11,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger
-} from "@/components/ui/alert-dialog"
+  } from "@/components/ui/alert-dialog"
+  import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -23,12 +24,12 @@ import {
     TableHeader,
     TableRow
 } from "@/components/ui/table"
-import { useToast } from "@/components/ui/use-toast"
 import { Category } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 
 export default function AddCategories() {
+
   const queryClient = useQueryClient()
   const { toast } = useToast()
   const [category, setCategory] = useState({
@@ -105,7 +106,11 @@ export default function AddCategories() {
         <h1 className="text-3xl font-bold mb-6">Category Management</h1>
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <h2 className="text-xl font-bold mb-4">Add New Category</h2>
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={()=> { handleSubmit
+           toast({
+                      variant: "success",
+                      title: "Product Has Been Deleted Successfully.✅"
+                    })}}>
             <div>
               <Label className="block font-medium mb-2" htmlFor="name">
                 Category Name
@@ -162,7 +167,7 @@ export default function AddCategories() {
                                 onClick={() => {
                                   handleDeleteCategory(getCategories.id)
                                   toast({
-                                    variant: "contained",
+                                    variant: "success",
                                     title: "Product Has Been Deleted Successfully.✅"
                                   })
                                 }}

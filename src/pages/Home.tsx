@@ -93,16 +93,6 @@ export default function Home() {
     <>
       <NavBar />
       <section className="w-full relative pt-40">
-        {/* <img
-          className="absolute inset-0 z-[-1] h-full w-full object-cover"
-          src="/src/assets/Hero.JPG"
-          height={1500}
-          style={{
-            aspectRatio: "1920/1080",
-            objectFit: "cover"
-          }}
-          width={1920}
-        /> */}
         <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-white">
@@ -115,241 +105,271 @@ export default function Home() {
             <Link to="/products">
               <Button size="lg">Shop Now!!</Button>
             </Link>
+            <img
+              alt="Hero image"
+              className="absolute inset-0 z-[-1] h-full w-full object-cover"
+              src="/src/assets/Hero.JPG"
+              height="550"
+              width="550"
+            />
           </div>
         </div>
       </section>
 
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 sm:grid-cols-1">
-  <div className="container">
-    <div className="flex flex-col items-center space-y-4 text-center">
-      <div className="space-y-2">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Products
-        </h2>
+        <div className="container">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Products
+              </h2>
 
-        <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-          Explore our premier selection of top-selling sports nutrition essentials.
-        </p>
-      </div>
-    </div>
-    
-      
-      <div className="flex-1 overflow-auto">
-        <div className="container mx-auto py-12 px-4 md:px-14">
-          <div className="space-y-12">
-                    <div>
-                      <h2 className="text-2xl font-bold tracking-tight">Supplements</h2>
-                      <Carousel className="mt-6">
-                        <CarouselContent>
-                          {supplementsProducts.map((product) => (
-                            <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
-                              <div className="p-1">
-                                <Card key={product.id} className="w-[350px]">
-                                  <Link to={`/products/${product.id}`}>
-                                    <CardContent className="p-4">
-                                      <img
-                                        src={product.image}
-                                        alt="Product Image"
-                                        className="aspect-square object-contain rounded-t-lg"
-                                        />
-                                      <CardTitle>{product.name}</CardTitle>
-                                      <p className="text-gray-500 dark:text-gray-400">
-                                        SR {product.price}
-                                      </p>
-                                    </CardContent>
-                                  </Link>
-                                  <CardFooter>
-                                    <Button
-                                      className="w-full"
-                                      onClick={() => handleAddToCart(product)}
-                                      >
-                                      Add to cart
-                                    </Button>
-                                  </CardFooter>
-                                </Card>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
-                    </div>
-                    <section className="w-full py-12 md:py-24 lg:py-32">
-                      <div className="container flex flex-col items-center space-y-4 text-center">
-                        <div className="space-y-2">
-                          <img
-                            className="absolute inset-0 z-[-1] h-full w-full object-cover"
-                            height={1500}
-                            style={{
-                              aspectRatio: "1920/1080",
-                              objectFit: "cover"
-                            }}
-                            width={1920}
-                            src="placeholder.svg"
-                            />
-                        </div>
-                        <Button size="lg">Learn More</Button>
-                      </div>
-                    </section>
-                    <div>
-                      <h2 className="text-2xl font-bold tracking-tight">Vitamins</h2>
-                      <Carousel className="mt-6">
-                        <CarouselContent>
-                          {vitaminsProducts.map((product) => (
-                            <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
-                              <div className="p-1">
-                                <Link to={`/products/${product.id}`}>
-                                  <Card key={product.id} className="w-[350px]">
-                                    <CardContent className="p-4">
-                                      <img
-                                        src={product.image}
-                                        alt="Product Image"
-                                        className="aspect-square object-contain rounded-t-lg"
-                                        />
-                                      <CardTitle>{product.name}</CardTitle>
-                                      <p className="text-gray-500 dark:text-gray-400">
-                                        SR {product.price}
-                                      </p>
-                                    </CardContent>
-                                    <CardFooter>
-                                      <Button
-                                        className="w-full"
-                                        onClick={() => handleAddToCart(product)}
-                                        >
-                                        Add to cart
-                                      </Button>
-                                    </CardFooter>
-                                  </Card>
-                                </Link>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold tracking-tight">Snacks</h2>
-                      <Carousel className="mt-6">
-                        <CarouselContent>
-                          {snacksProducts.map((product) => (
-                            <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
-                              <div className="p-1">
-                                <Link to={`/products/${product.id}`}>
-                                  <Card key={product.id} className="w-[350px]">
-                                    <CardContent className="p-4">
-                                      <img
-                                        src={product.image}
-                                        alt="Product Image"
-                                        className="aspect-square object-contain rounded-t-lg"
-                                        />
-                                      <CardTitle>{product.name}</CardTitle>
-                                      <p className="text-gray-500 dark:text-gray-400">
-                                        SR {product.price}
-                                      </p>
-                                    </CardContent>
-                                    <CardFooter>
-                                      <Button
-                                        className="w-full"
-                                        onClick={() => handleAddToCart(product)}
-                                      >
-                                        Add to cart
-                                      </Button>
-                                    </CardFooter>
-                                  </Card>
-                                </Link>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold tracking-tight">Sportswear</h2>
-                      <Carousel className="mt-6">
-                        <CarouselContent>
-                          {sportswearProducts.map((product) => (
-                            <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
-                              <div className="p-1">
-                                <Link to={`/products/${product.id}`}>
-                                  <Card key={product.id} className="w-[350px]">
-                                    <CardContent className="p-4">
-                                      <img
-                                        src={product.image}
-                                        alt="Product Image"
-                                        className="aspect-square object-contain rounded-t-lg"
-                                        />
-                                      <CardTitle>{product.name}</CardTitle>
-                                      <p className="text-gray-500 dark:text-gray-400">
-                                        SR {product.price}
-                                      </p>
-                                    </CardContent>
-                                    <CardFooter>
-                                      <Button
-                                        className="w-full"
-                                        onClick={() => handleAddToCart(product)}
-                                      >
-                                        Add to cart
-                                      </Button>
-                                    </CardFooter>
-                                  </Card>
-                                </Link>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold tracking-tight">Accessories & Equipment</h2>
-                      <Carousel className="mt-6">
-                        <CarouselContent>
-                          {accessoriesProducts.map((product) => (
-                            <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
-                              <div className="p-1">
-                                <Link to={`/products/${product.id}`}>
-                                  <Card key={product.id} className="w-[350px]">
-                                    <CardContent className="p-4">
-                                      <img
-                                        src={product.image}
-                                        alt="Product Image"
-                                        className="aspect-square object-contain rounded-t-lg"
-                                        />
-                                      <CardTitle>{product.name}</CardTitle>
-                                      <p className="text-gray-500 dark:text-gray-400">
-                                        SR {product.price}
-                                      </p>
-                                    </CardContent>
-                                    <CardFooter>
-                                      <Button
-                                        className="w-full"
-                                        onClick={() => handleAddToCart(product)}
-                                        >
-                                        Add to cart
-                                      </Button>
-                                    </CardFooter>
-                                  </Card>
-                                </Link>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
-                    </div>
+              <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+                Explore our premier selection of top-selling sports nutrition essentials.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex-1 overflow-auto">
+            <div className="container mx-auto py-12 px-4 md:px-14">
+              <div className="space-y-12">
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Supplements</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {supplementsProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Card key={product.id} className="w-[350px]">
+                              <Link to={`/products/${product.id}`}>
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                              </Link>
+                              <CardFooter>
+                                <Button
+                                  className="w-full"
+                                  onClick={() => {
+                                    handleAddToCart(product)
+                                    toast({
+                                      variant: "success",
+
+                                      title: "Product Has Been Add to cart Successfully.✅"
+                                    })
+                                  }}
+                                >
+                                  Add to cart
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <section className="w-full py-12 md:py-24 lg:py-32">
+                  <div className="container flex flex-col items-center space-y-4 text-center">
+                    <div className="space-y-2"></div>
+                    <Button size="lg">Learn More</Button>
                   </div>
+                </section>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Vitamins</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {vitaminsProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Card key={product.id} className="w-[350px]">
+                              <Link to={`/products/${product.id}`}>
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                              </Link>
+                              <CardFooter>
+                                <Button
+                                  className="w-full"
+                                  onClick={() => {
+                                    handleAddToCart(product)
+                                    toast({
+                                      variant: "success",
+
+                                      title: "Product Has Been Add to cart Successfully.✅"
+                                    })
+                                  }}
+                                >
+                                  Add to cart
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Snacks</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {snacksProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Card key={product.id} className="w-[350px]">
+                              <Link to={`/products/${product.id}`}>
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                              </Link>
+                              <CardFooter>
+                                <Button
+                                  className="w-full"
+                                  onClick={() => {
+                                    handleAddToCart(product)
+                                    toast({
+                                      variant: "success",
+
+                                      title: "Product Has Been Add to cart Successfully.✅"
+                                    })
+                                  }}
+                                >
+                                  Add to cart
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Sportswear</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {sportswearProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Card key={product.id} className="w-[350px]">
+                              <Link to={`/products/${product.id}`}>
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                              </Link>
+                              <CardFooter>
+                                <Button
+                                  className="w-full"
+                                  onClick={() => {
+                                    handleAddToCart(product)
+                                    toast({
+                                      variant: "success",
+
+                                      title: "Product Has Been Add to cart Successfully.✅"
+                                    })
+                                  }}
+                                >
+                                  Add to cart
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Accessories & Equipment</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {accessoriesProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Card key={product.id} className="w-[350px]">
+                              <Link to={`/products/${product.id}`}>
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                              </Link>
+                              <CardFooter>
+                                <Button
+                                  className="w-full"
+                                  onClick={() => {
+                                    handleAddToCart(product)
+                                    toast({
+                                      variant: "success",
+
+                                      title: "Product Has Been Add to cart Successfully.✅"
+                                    })
+                                  }}
+                                >
+                                  Add to cart
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
                 </div>
               </div>
             </div>
-          </section>
-  
+          </div>
+        </div>
+      </section>
+
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container flex flex-col items-center space-y-4 text-center">
           <div className="space-y-2">

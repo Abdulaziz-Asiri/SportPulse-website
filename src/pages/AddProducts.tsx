@@ -13,16 +13,28 @@ import {
   SelectValue
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
+
 import { Category, Product } from "@/types"
 import { Label } from "@radix-ui/react-label"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
+import { useToast } from "@/components/ui/use-toast"
 
 export function AddProducts() {
 
+  const { toast } = useToast()
   const queryClient = useQueryClient()
-
   const [product, setProduct] = useState({
     name: "",
     categoryId: "",
@@ -121,9 +133,9 @@ export function AddProducts() {
   return (
     <>
       <NavBarForAdmin />
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl pb-12">
-            Products Management
-          </h1>
+      <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl pb-12">
+        Products Management
+      </h1>
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
         <div className="container">
           <div className="flex flex-col items-center space-y-4 text-center">
@@ -136,7 +148,11 @@ export function AddProducts() {
               </p>
             </div>
             <div className="w-full max-w-md">
-              <form className="grid gap-4" onSubmit={handleSubmit}>
+              <form className="grid gap-4" onSubmit={() => { handleSubmit
+                    toast({
+                      variant: "success",
+                      title: "Product Has Been Deleted Successfully.✅"
+                    })}}>
                 <div className="grid gap-2">
                   <Label htmlFor="name">Product Name</Label>
                   <Input
@@ -189,7 +205,10 @@ export function AddProducts() {
                     onChange={handleChange}
                   />
                 </div>
-                <Button size="lg" type="submit">
+                <Button
+                  size="lg"
+                  type="submit"
+                >
                   Add Product
                 </Button>
               </form>
@@ -216,19 +235,35 @@ export function AddProducts() {
                 </CardContent>
                 <CardFooter>
                   <UpdateProductDailog product={product} />
-                  <Button
-                    variant="destructive"
-                    className="w-full"
-                    onClick={() => {
-                      handleDeleteProduct(product.id)
-                      toast({
-                        variant: "destructive",
-                        title: "Product Has Been Deleted Successfully."
-                      })
-                    }}
-                  >
-                    Delete
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="destructive">Delete Product</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Product</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete this Product? This action cannot be
+                          undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogAction
+                          variant="destructive"
+                          onClick={() => {
+                            handleDeleteProduct(product.id)
+                            toast({
+                              variant: "success",
+                              title: "Product Has Been Deleted Successfully.✅"
+                            })
+                          }}
+                        >
+                          Delete
+                        </AlertDialogAction>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </CardFooter>
               </Card>
             </div>
