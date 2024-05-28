@@ -1,7 +1,6 @@
 import NavBar from "@/components/NavigationBar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import videoH from "../assets/Hero Image.jpg"
 
 export default function AboutUs() {
   return (
