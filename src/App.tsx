@@ -70,10 +70,6 @@ const router = createBrowserRouter([
     element: <SingUp />
   },
   {
-    path: "/testpage",
-    element: <Testpage />
-  },
-  {
     path: "/users_managment",
     element: (
       <PrivateRoute>
