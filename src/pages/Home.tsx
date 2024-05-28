@@ -13,21 +13,25 @@ import { useToast } from "@/components/ui/use-toast"
 import { Link } from "react-router-dom"
 import ErrorPage from "@/components/ErrorPage"
 import LoadingPage from "@/components/LoadingPage"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "@/components/ui/carousel"
 
 export default function Home() {
-  
   const context = useContext(GlobalContext)
   if (!context) throw Error("Context is not available")
 
   const { state, handleAddToCart } = context
- 
 
   const queryClient = useQueryClient()
   const { toast } = useToast()
 
-  
-  const getProducts = async () => { // This function is defined as an asynchronous function that fetches the list of products from the API using the api.get method.
+  const getProducts = async () => {
+    // This function is defined as an asynchronous function that fetches the list of products from the API using the api.get method.
     try {
       const res = await api.get("/products") // Talk to backend through HTTP request using api using axios library
       return res.data
@@ -43,7 +47,6 @@ export default function Home() {
     queryFn: getProducts // Query function
   })
 
-  
   if (isPending) {
     return (
       <div>
@@ -60,19 +63,19 @@ export default function Home() {
     )
   }
 
-// const handleProductClick = (product: Product) => {
-//   // Navigate to the product details page and pass the product data as a parameter
-//   router.push({
-//     pathname: "/product_details",
-//     query: {
-//       id: product.id,
-//       name: product.name,
-//       image: product.image,
-//       price: product.price
-//     }
-//   })
-// }
- const supplementsProducts = data?.filter(
+  // const handleProductClick = (product: Product) => {
+  //   // Navigate to the product details page and pass the product data as a parameter
+  //   router.push({
+  //     pathname: "/product_details",
+  //     query: {
+  //       id: product.id,
+  //       name: product.name,
+  //       image: product.image,
+  //       price: product.price
+  //     }
+  //   })
+  // }
+  const supplementsProducts = data?.filter(
     (product) => product.categoryId === "c0e4b879-fca2-464e-a1cc-da704dd1cf87"
   )
   const vitaminsProducts = data?.filter(
@@ -91,26 +94,26 @@ export default function Home() {
     <>
       <NavBar />
 
-      <section className="w-full relative">
+      <section className="w-full relative pt-40">
+        <video
+          className="absolute inset-0 z-[-1] h-full w-full object-cover"
+          height={1500}
+          style={{
+            aspectRatio: "1920/1080",
+            objectFit: "cover"
+          }}
+          width={1920}
+          src={videoH}
+          autoPlay
+          loop
+          muted
+        />
         <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
-          <video
-            className="absolute inset-0 z-[-1] h-full w-full object-cover"
-            height={1500}
-            style={{
-              aspectRatio: "1920/1080",
-              objectFit: "cover"
-            }}
-            width={1920}
-            src={videoH}
-            autoPlay
-            loop
-            muted
-          />
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-white">
               Fuel Your Body with Premium Nutrition Supplements
             </h1>
-            <p className="decoration-white md:text-xl dark:text-white-400">
+            <p className="text-gray-200 md:text-xl pb-4">
               Elevate your health and performance with our high-quality protein powders, vitamins,
               and supplements.
             </p>
@@ -176,6 +179,27 @@ export default function Home() {
                         <CarouselNext />
                       </Carousel>
                     </div>
+                    <section className="w-full py-12 md:py-24 lg:py-32">
+                      <div className="container flex flex-col items-center space-y-4 text-center">
+                        <div className="space-y-2">
+                          
+                          <video
+                            className="absolute inset-0 z-[-1] h-full w-full object-cover"
+                            height={1500}
+                            style={{
+                              aspectRatio: "1920/1080",
+                              objectFit: "cover"
+                            }}
+                            width={1920}
+                            src={videoH}
+                            autoPlay
+                            loop
+                            muted
+                          />
+                        </div>
+                        <Button size="lg">Learn More</Button>
+                      </div>
+                    </section>
                     <div>
                       <h2 className="text-2xl font-bold tracking-tight">Vitamins</h2>
                       <Carousel className="mt-6">
