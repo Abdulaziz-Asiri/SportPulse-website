@@ -177,7 +177,7 @@ export default function Home() {
                     <section className="w-full py-12 md:py-24 lg:py-32">
                       <div className="container flex flex-col items-center space-y-4 text-center">
                         <div className="space-y-2">
-                          <video
+                          <img
                             className="absolute inset-0 z-[-1] h-full w-full object-cover"
                             height={1500}
                             style={{
@@ -185,10 +185,7 @@ export default function Home() {
                               objectFit: "cover"
                             }}
                             width={1920}
-                            src=""
-                            autoPlay
-                            loop
-                            muted
+                            src="placeholder.svg"
                           />
                         </div>
                         <Button size="lg">Learn More</Button>
