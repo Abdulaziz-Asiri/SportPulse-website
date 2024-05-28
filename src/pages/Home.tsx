@@ -5,7 +5,6 @@ import { buttonVariants } from "@/components/ui/button"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card, CardTitle, CardFooter } from "@/components/ui/card"
 import { Product } from "@/types"
-import videoH from "../assets/ProteinAd2.mp4"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react"
@@ -93,9 +92,8 @@ export default function Home() {
   return (
     <>
       <NavBar />
-
       <section className="w-full relative pt-40">
-        <video
+        <img
           className="absolute inset-0 z-[-1] h-full w-full object-cover"
           height={1500}
           style={{
@@ -103,10 +101,7 @@ export default function Home() {
             objectFit: "cover"
           }}
           width={1920}
-          src={videoH}
-          autoPlay
-          loop
-          muted
+          src="placeholder.svg"
         />
         <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
           <div className="space-y-4">
@@ -182,7 +177,6 @@ export default function Home() {
                     <section className="w-full py-12 md:py-24 lg:py-32">
                       <div className="container flex flex-col items-center space-y-4 text-center">
                         <div className="space-y-2">
-                          
                           <video
                             className="absolute inset-0 z-[-1] h-full w-full object-cover"
                             height={1500}
@@ -191,7 +185,7 @@ export default function Home() {
                               objectFit: "cover"
                             }}
                             width={1920}
-                            src={videoH}
+                            src=""
                             autoPlay
                             loop
                             muted

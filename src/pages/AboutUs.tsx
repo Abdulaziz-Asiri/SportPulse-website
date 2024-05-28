@@ -1,39 +1,34 @@
 import NavBar from "@/components/NavigationBar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import videoH from "../assets/ProteinAd2.mp4"
+import videoH from "../assets/Hero Image.jpg"
 
 export default function AboutUs() {
   return (
     <>
       <NavBar />
-      <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
-        <video
-          className="absolute inset-0 z-[-1] h-full w-full object-cover"
-          height={1500}
-          style={{
-            aspectRatio: "1920/1080",
-            objectFit: "cover"
-          }}
-          width={1920}
-          src={videoH}
-          autoPlay
-          loop
-          muted
-        />
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            Fuel Your Body with Premium Nutrition Supplements
-          </h1>
-          <p className="decoration-white md:text-xl dark:text-white-400">
-            Elevate your health and performance with our high-quality protein powders, vitamins, and
-            supplements.
-          </p>
-          <Link to="/products"> 
-          <Button size="lg">Shop Now!!</Button>
-          </Link>
+      <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center">
+          <div className="space-y-4">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+              Discover Our Sustainable Fashion Collection
+            </h1>
+            <p className="text-gray-500 md:text-xl dark:text-gray-400">
+              Elevate your style with our eco-friendly apparel, crafted with premium natural
+              materials and ethical practices.
+            </p>
+            <Button size="lg">Shop the Collection</Button>
+          </div>
+          <img
+            alt="Hero Product"
+            className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
+            height="550"
+            src="placeholder.svg"
+            width="550"
+          />
         </div>
-      </div>
+      </section>
+
       <div className="w-full max-w-6xl mx-auto py-12 md:py-48 px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12">
           <div>
