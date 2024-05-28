@@ -111,7 +111,7 @@ export default function Home() {
         <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32 ">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-white">
-              Fuel Your Body with Premium Nutrition Supplements
+              Fuel Your Body with SportPuls Premium Nutrition Supplements
             </h1>
             <p className="text-gray-200 md:text-xl pb-4">
               Elevate your health and performance with our high-quality protein powders, vitamins,
