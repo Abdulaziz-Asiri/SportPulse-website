@@ -73,7 +73,6 @@ export function Products() {
           </p>
         </div>
       </div>
-      <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap  mt-24">
         <div className="">
           <div className="flex-1 overflow-auto">
             <div className="container mx-auto py-12 px-4 md:px-14">
@@ -269,7 +268,7 @@ export function Products() {
             </div>
           </div>
         </div>
-      </section>
+      
     </>
   )
 }

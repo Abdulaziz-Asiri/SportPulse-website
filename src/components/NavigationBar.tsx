@@ -50,10 +50,7 @@ export default function NavBar() {
           <a className="text-sm font-medium hover:underline underline-offset-4" href="/contactUs">
             Contact Us
           </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="/aboutUs"
-          >
+          <a className="text-sm font-medium hover:underline underline-offset-4" href="/aboutUs">
             About
           </a>
           {!state.user && (
@@ -89,8 +86,13 @@ export default function NavBar() {
               </DropdownMenuItem>
             )}
 
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuItem>
+              <a href="/contactUs">Settings</a>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <a href="/contactUs">Support</a>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             {state.user && (
               <DropdownMenuItem>

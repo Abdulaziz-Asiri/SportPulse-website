@@ -44,17 +44,13 @@ const router = createBrowserRouter([
   {
     path: "/contactUs",
     element: (
-      <PrivateRoute>
         <ContactUs />
-      </PrivateRoute>
     )
   },
   {
     path: "/aboutUs",
     element: (
-      <PrivateRoute>
         <AboutUs />
-      </PrivateRoute>
     )
   },
   {

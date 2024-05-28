@@ -35,26 +35,26 @@ export default function ContactUs() {
               </Button>
             </form>
           </div>
-          <div className="space-y-6">
+          <div className="space-y-7">
             <div>
               <h2 className="text-2xl font-bold mb-2">Our Office</h2>
               <div className="text-gray-500 dark:text-gray-400">
-                <p>123 Main St.</p>
-                <p>Anytown, USA 12345</p>
+                <p>ALOlia Main St.</p>
+                <p>Riyadh, KSA 45637</p>
               </div>
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-2">Contact Us</h2>
               <div className="text-gray-500 dark:text-gray-400">
-                <p>Phone: (123) 456-7890</p>
-                <p>Email: info@company.com</p>
+                <p>Phone: (966) 456-7890</p>
+                <p>Email: info@SportPulse.com</p>
               </div>
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-2">Business Hours</h2>
               <div className="text-gray-500 dark:text-gray-400">
-                <p>Monday - Friday: 9am - 5pm</p>
-                <p>Saturday - Sunday: Closed</p>
+                <p>Sunday - Thursday: 9am - 5pm</p>
+                <p>Friday - Saturday: Closed</p>
               </div>
             </div>
           </div>

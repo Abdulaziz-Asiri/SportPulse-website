@@ -121,6 +121,9 @@ export function AddProducts() {
   return (
     <>
       <NavBarForAdmin />
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl pb-12">
+            Products Management
+          </h1>
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
         <div className="container">
           <div className="flex flex-col items-center space-y-4 text-center">
