@@ -16,6 +16,8 @@ import AddCategories from "./pages/AddCategories"
 import InventoryManagment from "./pages/InventoryManagement"
 import ProductDetails from "./pages/ProductDetails"
 import Checkout from "./pages/CheckoutPage"
+import ContactUs from "./pages/ContactUs"
+import AboutUs from "./pages/AboutUs"
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,22 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <AddProducts />
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/contactUs",
+    element: (
+      <PrivateRoute>
+        <ContactUs />
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/aboutUs",
+    element: (
+      <PrivateRoute>
+        <AboutUs />
       </PrivateRoute>
     )
   },

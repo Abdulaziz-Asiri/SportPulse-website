@@ -82,16 +82,16 @@ export function NavBarForAdmin() {
               <a href="/Dashboard" className="hover:text-foreground">
                 Dashboard
               </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground">
-                Orders
+              <a href="/products" className="text-muted-foreground hover:text-foreground">
+                Products
               </a>
-              <a href="/AddProducts" className="text-muted-foreground hover:text-foreground">
+              <a href="/add_products" className="text-muted-foreground hover:text-foreground">
                 Products Management
               </a>
-              <a href="/usersmanagment" className="text-muted-foreground hover:text-foreground">
+              <a href="/users_managment" className="text-muted-foreground hover:text-foreground">
                 Users Management
               </a>
-              <a href="/addcategories" className="text-muted-foreground hover:text-foreground">
+              <a href="/add_categories" className="text-muted-foreground hover:text-foreground">
                 Category Management
               </a>
               <a

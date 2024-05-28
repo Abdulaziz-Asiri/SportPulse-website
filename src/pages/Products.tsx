@@ -10,6 +10,14 @@ import Home from "./Home"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import SearchBar from "@/components/SearchBar"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "@/components/ui/carousel"
+import { Link } from "react-router-dom"
 
 export function Products() {
   const context = useContext(GlobalContext)
@@ -36,35 +44,231 @@ export function Products() {
 
   if (isPending) return <LoadingPage/>
   if (error) return  <ErrorPage/>
+  const supplementsProducts = data?.filter(
+    (product) => product.categoryId === "c0e4b879-fca2-464e-a1cc-da704dd1cf87"
+  )
+  const vitaminsProducts = data?.filter(
+    (product) => product.categoryId === "3ca82abe-df4f-4c8e-b276-577ec68b0c53"
+  )
+  const snacksProducts = data?.filter(
+    (product) => product.categoryId === "dab23e55-2ba5-4450-9d45-183f5023e2d5"
+  )
+  const sportswearProducts = data?.filter(
+    (product) => product.categoryId === "291a3106-563b-4aff-891f-fa882aa0a674"
+  )
+  const accessoriesProducts = data?.filter(
+    (product) => product.categoryId === "a94743ed-e792-48a2-9390-c5841492923"
+  )
   
   return (
     <>
       <NavBar />
-      <SearchBar />
+      {/* <SearchBar /> */}
+      <div className="flex flex-col items-center space-y-4 text-center  mt-24">
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Products</h2>
+
+          <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+            Explore our premier selection of top-selling sports nutrition essentials.
+          </p>
+        </div>
+      </div>
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap  mt-24">
-        {/* {data?.map((product) => (
-          <Card key={product.id} className="w-[350px]">
-            <img
-              src={product.image}
-              alt="Product Image"
-              // aspect-square object-fit rounded-t-lg
-              className="aspect-square object-contain rounded-t-lg"
-              // height="200"
-              // width="200"
-            />
-            <CardContent className="p-4">
-              <CardTitle>{product.name}</CardTitle>
-              <p className="text-gray-500 dark:text-gray-400">SR {product.price}</p>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full" onClick={() => handleAddToCart(product)}>
-                Add to cart
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-        <h3> Cart ({state.cart.length}) </h3> */}
-        {/* {error && <p className="text-red-500">{error.message}</p>} */}
+        <div className="">
+          <div className="flex-1 overflow-auto">
+            <div className="container mx-auto py-12 px-4 md:px-14">
+              <div className="space-y-12">
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Supplements</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {supplementsProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Card key={product.id} className="w-[350px]">
+                              <Link to={`/products/${product.id}`}>
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                              </Link>
+                              <CardFooter>
+                                <Button className="w-full" onClick={() => handleAddToCart(product)}>
+                                  Add to cart
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Vitamins</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {vitaminsProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Link to={`/products/${product.id}`}>
+                              <Card key={product.id} className="w-[350px]">
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                                <CardFooter>
+                                  <Button
+                                    className="w-full"
+                                    onClick={() => handleAddToCart(product)}
+                                  >
+                                    Add to cart
+                                  </Button>
+                                </CardFooter>
+                              </Card>
+                            </Link>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Snacks</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {snacksProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Link to={`/products/${product.id}`}>
+                              <Card key={product.id} className="w-[350px]">
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                                <CardFooter>
+                                  <Button
+                                    className="w-full"
+                                    onClick={() => handleAddToCart(product)}
+                                  >
+                                    Add to cart
+                                  </Button>
+                                </CardFooter>
+                              </Card>
+                            </Link>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Sportswear</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {sportswearProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Link to={`/products/${product.id}`}>
+                              <Card key={product.id} className="w-[350px]">
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                                <CardFooter>
+                                  <Button
+                                    className="w-full"
+                                    onClick={() => handleAddToCart(product)}
+                                  >
+                                    Add to cart
+                                  </Button>
+                                </CardFooter>
+                              </Card>
+                            </Link>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight">Accessories & Equipment</h2>
+                  <Carousel className="mt-6">
+                    <CarouselContent>
+                      {accessoriesProducts.map((product) => (
+                        <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={product.id}>
+                          <div className="p-1">
+                            <Link to={`/products/${product.id}`}>
+                              <Card key={product.id} className="w-[350px]">
+                                <CardContent className="p-4">
+                                  <img
+                                    src={product.image}
+                                    alt="Product Image"
+                                    className="aspect-square object-contain rounded-t-lg"
+                                  />
+                                  <CardTitle>{product.name}</CardTitle>
+                                  <p className="text-gray-500 dark:text-gray-400">
+                                    SR {product.price}
+                                  </p>
+                                </CardContent>
+                                <CardFooter>
+                                  <Button
+                                    className="w-full"
+                                    onClick={() => handleAddToCart(product)}
+                                  >
+                                    Add to cart
+                                  </Button>
+                                </CardFooter>
+                              </Card>
+                            </Link>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   )

@@ -47,29 +47,29 @@ export default function NavBar() {
           <a className="text-sm font-medium hover:underline underline-offset-4" href="/products">
             Products
           </a>
-          <a className="text-sm font-medium hover:underline underline-offset-4" href="/login">
+          <a className="text-sm font-medium hover:underline underline-offset-4" href="/contactUs">
             Contact Us
           </a>
           <a
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="/NotFoundPage"
+            href="/aboutUs"
           >
             About
           </a>
           {!state.user && (
-          <div className="flex items-center gap-2">
-            <Button
-              className="hidden md:inline-flex"
-              size="sm"
-              variant="outline"
-              onClick={handleLoginClick}
-            >
-              Log In
-            </Button>
-            <Button size="sm" onClick={handleSignUPClick}>
-              Sign Up
-            </Button>
-          </div>
+            <div className="flex items-center gap-2">
+              <Button
+                className="hidden md:inline-flex"
+                size="sm"
+                variant="outline"
+                onClick={handleLoginClick}
+              >
+                Log In
+              </Button>
+              <Button size="sm" onClick={handleSignUPClick}>
+                Sign Up
+              </Button>
+            </div>
           )}
         </div>
         <Cart /> {/*Cart component */}

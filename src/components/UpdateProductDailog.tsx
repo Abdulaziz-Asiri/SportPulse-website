@@ -49,13 +49,13 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
     }
   }
 
-  const handleUpdatedChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUpdatedChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name,value } = e.target
     setUpdatedProduct({
       ...updatedProduct,
       [name]: value
     })
-    console.log('[name]: value:', name, value)
+    console.log('[name]: value:',  value)
   }
 
   const handleUpdate = async () => {
@@ -107,11 +107,16 @@ export default function UpdateProductDailog({ product }: { product: Product }) {
             <Label className="text-right" htmlFor="category">
               Category
             </Label>
-            <Select name="category" className="col-span-3" defaultValue={updatedProduct.categoryId}>
+            <Select
+              name="category"
+              className="col-span-3"
+              defaultValue={updatedProduct.categoryId}
+              onChange={handleUpdatedChange}
+            >
               <SelectTrigger>
                 <SelectValue placeholder={product.categoryId} />
               </SelectTrigger>
-              <SelectContent onChange={handleUpdatedChange}>
+              <SelectContent >
                 {getCategory?.map((getCategories) => {
                   return (
                     <SelectItem key={getCategories.id} value={getCategories.id}>

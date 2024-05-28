@@ -196,7 +196,7 @@ export function AddProducts() {
         {/* {postError && <p className="text-red-500">{postError.message}</p>} */}
       </section>
 
-      <SearchBar />
+      {/* <SearchBar /> */}
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
         {getProductData?.map((product) => {
           return (
