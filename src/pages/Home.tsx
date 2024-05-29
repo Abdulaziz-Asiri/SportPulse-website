@@ -117,7 +117,6 @@ export default function Home() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Products
               </h2>
-
               <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
                 Explore our premier selection of top-selling sports nutrition essentials.
               </p>
@@ -171,6 +170,7 @@ export default function Home() {
                     <CarouselNext />
                   </Carousel>
                 </div>
+                
                 <div>
                   <h2 className="text-2xl font-bold tracking-tight">Vitamins</h2>
                   <Carousel className="mt-6">
