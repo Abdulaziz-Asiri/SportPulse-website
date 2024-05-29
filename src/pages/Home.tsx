@@ -76,7 +76,7 @@ export default function Home() {
     (product) => product.categoryId === "291a3106-563b-4aff-891f-fa882aa0a674"
   )
   const accessoriesProducts = data?.filter(
-    (product) => product.categoryId === "a94743ed-e792-48a2-9390-c5841492923"
+    (product) => product.categoryId === "a94743ed-e792-48a2-9390-c5841492923f"
   )
   return (
     <>
