@@ -63,9 +63,9 @@ export function Cart() {
     <>
       <Drawer>
         <DrawerTrigger asChild>
-          <Button className="rounded-full  relative" size="icon" variant="ghost">
+          <Button className="rounded-full  relative " size="icon" variant="ghost">
             <ShoppingCartIcon className="h-6 w-6" />
-            <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-primary text-white rounded-full h-5 w-5 flex items-center justify-center text-xs font-medium">
+            <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-indigo-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs font-medium">
               {state.cart.length}
             </div>
             <span className="sr-only">Open cart</span>
@@ -143,7 +143,7 @@ export function Cart() {
                 <Button variant="outline">Continue Shopping</Button>
               </DrawerClose>
 
-              <Button>
+              <Button className="bg-indigo-500 hover:bg-green-600 text-white font-medium">
                 <Link to={`/checkout`}>Proceed to Checkout</Link>
               </Button>
             </div>

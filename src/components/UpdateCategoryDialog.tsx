@@ -48,7 +48,7 @@ export function UpdateCategory({ getCategories }: { getCategories: Category }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Edit Category</Button>
+        <Button className="bg-gray-500 hover:bg-indigo-600 text-white font-medium ">Edit Category</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[420px]">
         <DialogHeader>

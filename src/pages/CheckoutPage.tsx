@@ -72,7 +72,7 @@ export default function Checkout({ cart }: { cart: Product }) {
                       <div className="flex items-center gap-2">
                         <Button
                           size="icon"
-                          variant="ghost"
+                          variant="outline"
                           onClick={() => handleDeleteFromCart(product.id)}
                         >
                           <MinusIcon className="h-4 w-4" />
@@ -82,7 +82,7 @@ export default function Checkout({ cart }: { cart: Product }) {
                         </span>
                         <Button
                           size="icon"
-                          variant="ghost"
+                          variant="outline"
                           onClick={() => handleAddToCart(product)}
                         >
                           <PlusIcon className="h-4 w-4" />
@@ -160,7 +160,10 @@ export default function Checkout({ cart }: { cart: Product }) {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button className="w-full" size="lg">
+                <Button
+                  className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
+                  size="lg"
+                >
                   Place Order
                 </Button>
               </div>

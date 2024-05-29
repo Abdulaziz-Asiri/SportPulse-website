@@ -102,7 +102,7 @@ export function Products() {
                             </Link>
                             <CardFooter>
                               <Button
-                                className="w-full"
+                                className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
                                 onClick={() => {
                                   handleAddToCart(product)
                                   toast({
@@ -147,7 +147,7 @@ export function Products() {
                             </Link>
                             <CardFooter>
                               <Button
-                                className="w-full"
+                                className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
                                 onClick={() => {
                                   handleAddToCart(product)
                                   toast({
@@ -192,7 +192,7 @@ export function Products() {
                             </Link>
                             <CardFooter>
                               <Button
-                                className="w-full"
+                                className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
                                 onClick={() => {
                                   handleAddToCart(product)
                                   toast({
@@ -237,7 +237,7 @@ export function Products() {
                             </Link>
                             <CardFooter>
                               <Button
-                                className="w-full"
+                                className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
                                 onClick={() => {
                                   handleAddToCart(product)
                                   toast({
@@ -282,7 +282,7 @@ export function Products() {
                             </Link>
                             <CardFooter>
                               <Button
-                                className="w-full"
+                                className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
                                 onClick={() => {
                                   handleAddToCart(product)
                                   toast({

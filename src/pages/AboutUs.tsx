@@ -6,18 +6,20 @@ export default function AboutUs() {
   return (
     <>
       <NavBar />
-      <section className="w-full py-12 md:py-24 lg:py-32">
+      <section className="w-full py-12 md:py-24 lg:py-30">
         <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-              Discover Our Sustainable Fashion Collection
+              Explore Our Full Nutrition Supplements Line
             </h1>
             <p className="text-gray-500 md:text-xl dark:text-gray-400">
-              Elevate your style with our eco-friendly apparel, crafted with premium natural
-              materials and ethical practices.
+              Browse our entire selection of high-quality protein powders, vitamins, and
+              supplements..
             </p>
             <Link to="/products">
-            <Button size="lg">Shop the Collection</Button>
+              <Button size="lg" className="bg-green-500 hover:bg-green-600 text-white font-medium">
+                Shop the Collection
+              </Button>
             </Link>
           </div>
           <img
@@ -30,7 +32,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <div className="w-full max-w-6xl mx-auto py-12 md:py-48 px-4 md:px-6">
+      <div className="w-full max-w-6xl mx-auto py-12 md:py-30 px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h1 className="text-3xl font-bold mb-4">About Us</h1>

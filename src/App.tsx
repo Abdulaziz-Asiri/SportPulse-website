@@ -18,6 +18,9 @@ import ProductDetails from "./pages/ProductDetails"
 import Checkout from "./pages/CheckoutPage"
 import ContactUs from "./pages/ContactUs"
 import AboutUs from "./pages/AboutUs"
+import React from "react"
+import { WebChatContainer, setEnableDebug } from "@ibm-watson/assistant-web-chat-react"
+
 
 const router = createBrowserRouter([
   {
@@ -112,6 +115,19 @@ type GlobalState = {
 }
 export const GlobalContext = createContext<GlobalContextType | null>(null)
 
+const webChatOptions = {
+    integrationID: "b9331b05-7f3a-4678-8875-117e62d4b438", // The ID of this integration.
+    region: "eu-de", // The region your integration is hosted in.
+    serviceInstanceID: "aea5f2eb-c40f-4db8-9015-c6bb341fa342", // The ID of your service instance.
+  // subscriptionID: 'only on enterprise plans',
+  // Note that there is no onLoad property here. The WebChatContainer component will override it.
+  // Use the onBeforeRender or onAfterRender prop instead.
+}
+
+// Include this if you want to get debugging information from this library. Note this is different than
+// the web chat "debug: true" configuration option which enables debugging within web chat.
+setEnableDebug(true)
+
 function App() {
   const [state, setState] = useState<GlobalState>({
     cart: [],
@@ -177,6 +193,7 @@ function App() {
         >
           <RouterProvider router={router} />
           <Toaster />
+          <WebChatContainer config={webChatOptions} />;
         </GlobalContext.Provider>
       </div>
     </>

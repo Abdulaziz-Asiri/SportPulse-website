@@ -33,12 +33,14 @@ export default function ContactUs() {
                 <Textarea className="min-h-[120px]" id="message" placeholder="Enter your message" />
               </div>
               <Button
-                className="w-full"
+                className="w-full bg-indigo-500 hover:bg-green-600 text-white font-medium"
                 type="submit"
-                onClick={() => toast({
-                  variant: "success",
-                  title: "Message submit Successfully.✅"
-                })}
+                onClick={() =>
+                  toast({
+                    variant: "success",
+                    title: "Message submit Successfully.✅"
+                  })
+                }
               >
                 Submit
               </Button>

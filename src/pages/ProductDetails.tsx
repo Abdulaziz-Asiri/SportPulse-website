@@ -51,9 +51,9 @@ export default function ProductDetails({ productDetiles }: { productDetiles: Pro
             <h1 className="text-3xl md:text-4xl font-bold">{product.name}</h1>
             <div className="flex items-center gap-2 mt-2">
               <div className="flex items-center gap-0.5">
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
+                <StarIcon className="w-5 h-5 fill-yellow-500" />
+                <StarIcon className="w-5 h-5 fill-yellow-500" />
+                <StarIcon className="w-5 h-5 fill-yellow-500" />
                 <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
                 <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
               </div>
@@ -64,7 +64,11 @@ export default function ProductDetails({ productDetiles }: { productDetiles: Pro
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
               <span className="text-2xl font-bold">SR {product.price}</span>
-              <Button size="lg" onClick={() => handleAddToCart(product)}>
+              <Button
+                size="lg"
+                className="bg-indigo-500 hover:bg-green-600 text-white font-medium"
+                onClick={() => handleAddToCart(product)}
+              >
                 Add to Cart
               </Button>
             </div>
@@ -98,9 +102,9 @@ export default function ProductDetails({ productDetiles }: { productDetiles: Pro
                     <div className="flex items-center gap-2">
                       <div className="font-medium">John Doe</div>
                       <div className="flex items-center gap-0.5">
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
                         <StarIcon className="w-4 h-4 fill-muted stroke-muted-foreground" />
                         <StarIcon className="w-4 h-4 fill-muted stroke-muted-foreground" />
                       </div>
@@ -120,10 +124,10 @@ export default function ProductDetails({ productDetiles }: { productDetiles: Pro
                     <div className="flex items-center gap-2">
                       <div className="font-medium">Sarah Anderson</div>
                       <div className="flex items-center gap-0.5">
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
                         <StarIcon className="w-4 h-4 fill-muted stroke-muted-foreground" />
                       </div>
                     </div>
@@ -142,11 +146,11 @@ export default function ProductDetails({ productDetiles }: { productDetiles: Pro
                     <div className="flex items-center gap-2">
                       <div className="font-medium">Michael Johnson</div>
                       <div className="flex items-center gap-0.5">
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
-                        <StarIcon className="w-4 h-4 fill-primary" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
+                        <StarIcon className="w-4 h-4 fill-yellow-500" />
                       </div>
                     </div>
                     <div className="text-gray-500 dark:text-gray-400">

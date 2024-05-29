@@ -410,6 +410,11 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@ibm-watson/assistant-web-chat-react@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@ibm-watson/assistant-web-chat-react/-/assistant-web-chat-react-1.1.1.tgz#dc3ee7310dfa4fd0c93a2a57a58cdc4a49fcfdd9"
+  integrity sha512-iSYyxN2ez8xoGYHAUOAEotY7sMFIbG81uYtZ5iAYI4loivIzXhLa22fQT/fxToqnmmzXJosTGcZPgJxCANI4tg==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz"
