@@ -1,0 +1,53 @@
+.LoadingContainer {
+  --uib-size: 45px;
+  --uib-color: black;
+  --uib-speed: 1.75s;
+  --uib-bg-opacity: 0.1;
+  height: 31.25px;
+  width: 50px;
+  transform-origin: center;
+  overflow: visible;
+}
+
+.LoadingCar {
+  stroke: var(--uib-color);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: travel var(--uib-speed) ease-in-out infinite, fade var(--uib-speed) ease-out infinite;
+  will-change: stroke-dasharray, stroke-dashoffset;
+  transition: stroke 0.5s ease;
+}
+
+.LoadingTrack {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: var(--uib-color);
+  opacity: var(--uib-bg-opacity);
+}
+
+@keyframes travel {
+  0% {
+    stroke-dashoffset: 100;
+  }
+
+  75% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  20%,
+  55% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

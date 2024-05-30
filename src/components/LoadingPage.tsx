@@ -1,13 +1,16 @@
-
+import "../style/loading.css"
 
 export default function LoadingPage() {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="flex flex-col items-center space-y-4">
-        <div className="animate-spin">
+        <div className="animate">
           <DribbbleIcon className="h-16 w-16 text-gray-500 dark:text-gray-400" />
         </div>
-        <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+        <p className="text-gray-500 dark:text-gray-400">Page is Loading...</p>
+        <p className="text-gray-500 dark:text-gray-400">
+          "Push yourself because no one else is going to do it for you."
+        </p>
       </div>
     </div>
   )
@@ -17,20 +20,28 @@ function DribbbleIcon(props) {
   return (
     <svg
       {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      className="LoadingContainer"
+      x="0px"
+      y="0px"
+      viewBox="0 0 50 31.25"
+      height="31.25"
+      width="50"
+      preserveAspectRatio="xMidYMid meet"
     >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
-      <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
-      <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72" />
+      <path
+        className="LoadingTrack"
+        strokeWidth="4"
+        fill="none"
+        pathLength="100"
+        d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+      />
+      <path
+        className="LoadingCar"
+        strokeWidth="4"
+        fill="none"
+        pathLength="100"
+        d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+      />
     </svg>
   )
 }

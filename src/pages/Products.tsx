@@ -19,6 +19,9 @@ import {
 } from "@/components/ui/carousel"
 import { useToast } from "@/components/ui/use-toast"
 import { Link } from "react-router-dom"
+import { TextGenerateEffect2 } from "../components/ui/text-generate-effect"
+import { ImagesSlider } from "@/components/ui/images-slider"
+import { motion } from "framer-motion"
 
 export function Products() {
   const { toast } = useToast()
@@ -61,12 +64,52 @@ export function Products() {
   const accessoriesProducts = data?.filter(
     (product) => product.categoryId === "a94743ed-e792-48a2-9390-c5841492923"
   )
+  
+  const word1 = `Fuel Your Body with SportPuls Premium Nutrition Supplements`
+
+   const images = [
+     "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717012632/dymatize_vanilla_ciysci.webp",
+     "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717012306/optimum-nutrition-gold-standard-100-whey-2lb-29-servings-double-rich-chocolate-info-image-02_vfpcxt.jpg",
+     "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717012493/maxresdefault_fqpq7s.jpg"
+   ]
 
   return (
     <>
       <NavBar />
       {/* <SearchBar /> */}
+
       <div className="flex flex-col items-center space-y-4 text-center  mt-24">
+        <div className="container grid lg:grid-cols-[1fr_500px] gap-12 items-center py-12 md:py-24 lg:py-32">
+          <div className="space-y-20 bg-gradient-to-r rounded-3xl py-16 px-16">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-black">
+              <TextGenerateEffect2 words={word1} />
+            </h1>
+            <p className="text-black-200 md:text-xl pb-4">
+              Elevate your health and performance with our high-quality protein powders, vitamins,
+              and supplements.
+            </p>
+            <img
+              alt="Hero Background"
+              className="absolute inset-0 z-[-1] h-full w-full object-cover"
+              height={1080}
+              src=""
+              style={{
+                aspectRatio: "1920/1080",
+                objectFit: "cover"
+              }}
+              width={1920}
+            />
+
+            <Link to="/products">
+              <Button
+                size="lg"
+                className="rounded-full items-center w-50% bg-indigo-500 hover:bg-green-900 text-white font-medium"
+              >
+                Shop Now!!
+              </Button>
+            </Link>
+          </div>
+        </div>
         <div className="space-y-2">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Products</h2>
 

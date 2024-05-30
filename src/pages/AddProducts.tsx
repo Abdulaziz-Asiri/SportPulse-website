@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Category, Product } from "@/types"
 import { Label } from "@radix-ui/react-label"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,7 +32,6 @@ import {
 import { useToast } from "@/components/ui/use-toast"
 
 export function AddProducts() {
-
   const { toast } = useToast()
   const queryClient = useQueryClient()
   const [product, setProduct] = useState({
@@ -52,11 +51,15 @@ export function AddProducts() {
     }
   }
 
-  const { data: getProductData, error, isPending } = useQuery<Product[]>({
+  const {
+    data: getProductData,
+    error,
+    isPending
+  } = useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: getProducts
   })
-  
+
   const getCategories = async () => {
     try {
       const res = await api.get("/categorys")
@@ -76,10 +79,10 @@ export function AddProducts() {
     const token = localStorage.getItem("token")
     try {
       const res = await api.post("/products", product, {
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        })
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       return res.data
     } catch (error) {
       console.error(error)
@@ -87,15 +90,14 @@ export function AddProducts() {
     }
   }
 
-
   const deleteProducts = async (id: string) => {
     const token = localStorage.getItem("token")
     try {
       const res = await api.delete(`/products/${id}`, {
-            headers:{
-                Authorization: `Bearer ${token}` // Send token with request to check permissions
-            }
-        })
+        headers: {
+          Authorization: `Bearer ${token}` // Send token with request to check permissions
+        }
+      })
       return res.data
     } catch (error) {
       console.error(error)
@@ -122,13 +124,25 @@ export function AddProducts() {
     })
   }
 
-  const handleSubmit = async (e) => {
-  
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    await postProducts()
-    queryClient.invalidateQueries({ queryKey: ["products"] })
+    console.log("sdfsd")
+    try {
+      const res = await postProducts()
+      queryClient.invalidateQueries({ queryKey: ["products"] })
+      if (res.status === 201) {
+        toast({
+          variant: "success",
+          title: "Product Has Been Added Successfully.✅"
+        })
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Product Has Been Added Successfully.✅"
+      })
+    }
   }
-
 
   return (
     <>
@@ -148,11 +162,7 @@ export function AddProducts() {
               </p>
             </div>
             <div className="w-full max-w-md">
-              <form className="grid gap-4" onSubmit={() => { handleSubmit
-                    toast({
-                      variant: "success",
-                      title: "Product Has Been Deleted Successfully.✅"
-                    })}}>
+              <form action="POST" className="grid gap-4" onSubmit={handleSubmit}>
                 <div className="grid gap-2">
                   <Label htmlFor="name">Product Name</Label>
                   <Input
@@ -205,17 +215,13 @@ export function AddProducts() {
                     onChange={handleChange}
                   />
                 </div>
-                <Button
-                  size="lg"
-                  type="submit"
-                >
+                <Button size="lg" type="submit">
                   Add Product
                 </Button>
               </form>
             </div>
           </div>
         </div>
-        {/* {postError && <p className="text-red-500">{postError.message}</p>} */}
       </section>
 
       {/* <SearchBar /> */}
