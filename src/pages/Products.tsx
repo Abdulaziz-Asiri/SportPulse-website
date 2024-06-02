@@ -24,6 +24,7 @@ import { ImagesSlider } from "@/components/ui/images-slider"
 import { motion } from "framer-motion"
 
 export function Products() {
+  
   const { toast } = useToast()
   const context = useContext(GlobalContext)
   if (!context) throw Error("Context is not available")

@@ -7,9 +7,9 @@ export default function LoadingPage() {
         <div className="animate">
           <DribbbleIcon className="h-16 w-16 text-gray-500 dark:text-gray-400" />
         </div>
-        <p className="text-gray-500 dark:text-gray-400">Page is Loading...</p>
-        <p className="text-gray-500 dark:text-gray-400">
-          "Push yourself because no one else is going to do it for you."
+        <p className="text-gray-500 dark:text-gray-400 text-center">Page is Loading...</p>
+        <p className="text-gray-500 dark:text-gray-400 text-center">
+          &quot;Push yourself because no one else is going to do it for you.&quot;
         </p>
       </div>
     </div>
