@@ -16,7 +16,7 @@ export default function LoadingPage() {
   )
 }
 
-function DribbbleIcon(props) {
+function DribbbleIcon(props:any) {
   return (
     <svg
       {...props}

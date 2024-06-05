@@ -11,7 +11,7 @@ import { useContext } from "react"
 import { useParams } from "react-router-dom"
 
 
-export default function ProductDetails({ productDetiles }: { productDetiles: Product }) {
+export default function ProductDetails() {
  const params = useParams()
  const context = useContext(GlobalContext)
  if (!context) throw Error("Context is not available")

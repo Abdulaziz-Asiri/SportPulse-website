@@ -26,7 +26,7 @@ export default function ErrorPage() {
   )
 }
 
-function RefreshCwIcon(props) {
+function RefreshCwIcon(props:any) {
   return (
     <svg
       {...props}
@@ -48,7 +48,7 @@ function RefreshCwIcon(props) {
   )
 }
 
-function TriangleAlertIcon(props) {
+function TriangleAlertIcon(props:any) {
   return (
     <svg
       {...props}

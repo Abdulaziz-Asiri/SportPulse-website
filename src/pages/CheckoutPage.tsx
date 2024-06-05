@@ -14,7 +14,7 @@ import { Product } from "@/types"
 import { GlobalContext } from "@/App"
 import { useContext, useState } from "react"
 
-export default function Checkout({ cart }: { cart: Product }) {
+export default function Checkout() {
 
   const context = useContext(GlobalContext)
   if (!context) throw Error("Context is not available")
@@ -149,7 +149,7 @@ export default function Checkout({ cart }: { cart: Product }) {
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="payment">Payment Method</Label>
-                  <Select id="payment">
+                  <Select name="payment">
                     <SelectTrigger>
                       <SelectValue placeholder="Select payment method" />
                     </SelectTrigger>
@@ -175,7 +175,7 @@ export default function Checkout({ cart }: { cart: Product }) {
   )
 }
 
-function MinusIcon(props) {
+function MinusIcon(props: any) {
   return (
     <svg
       {...props}
@@ -194,7 +194,7 @@ function MinusIcon(props) {
   )
 }
 
-function PlusIcon(props) {
+function PlusIcon(props: any) {
   return (
     <svg
       {...props}

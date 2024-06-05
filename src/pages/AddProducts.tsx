@@ -109,7 +109,7 @@ export function AddProducts() {
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     const { name, value } = e.target
     setProduct({
       ...product,

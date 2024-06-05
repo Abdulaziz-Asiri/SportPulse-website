@@ -87,6 +87,7 @@ export default function Home() {
   )
 
   const images = [
+    "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717440135/pexels-victorfreitas-841130_nvap2z.jpg",
     "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717012632/dymatize_vanilla_ciysci.webp",
     "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717012306/optimum-nutrition-gold-standard-100-whey-2lb-29-servings-double-rich-chocolate-info-image-02_vfpcxt.jpg",
     "https://res.cloudinary.com/dp5hwcef0/image/upload/v1717012493/maxresdefault_fqpq7s.jpg"
